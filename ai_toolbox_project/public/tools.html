@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All AI Literacy Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    main.scroll-container p.intro-text {
+      text-align: center;
+      color: #ffffff;
+      font-weight: 500;
+      margin-top: -0.5rem;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .rating-stars {
+      width: 120px;
+      margin-top: 0.5rem;
+    }
+
+    .age-recommendation {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="header-inner">
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="ai_literacy.html">AI Literacy</a>
+      <a href="tools.html" class="active">All Tools</a>
+    </nav>
+    <div class="header-right">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Search..." />
+        <button onclick="search()">🔍</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="scroll-container">
+  <h1>All AI Literacy Tools</h1>
+  <p class="intro-text">Browse our curated AI literacy tools to enhance your skills and knowledge in artificial intelligence.</p>
+
+  <div class="tools-section">
+    <div class="tool-row" id="toolsContainer">
+
+      <a href="mystery.html" class="tool-card tool-link" >
+        <h3>Mystery Cat</h3>
+        <img src="assets/MurderMystery.png" alt="Mystery Cat" />
+        <p>Learn about pattern recognition through an interactive game.</p>
+        <img class="rating-stars" src="assets/Star_rating_5_of_5.png" alt="5 stars" />
+        <p class="age-recommendation">Recommended age: 18+</p>
+      </a>
+
+      <a href="https://quizzerai-b0zx.onrender.com/" target="_blank" class="tool-card tool-link" >
+        <h3>Quizzer AI</h3>
+        <img src="assets/Quiz.png" alt="Quizzer AI" />
+        <p>Test your knowledge about AI with our quiz.</p>
+        <img class="rating-stars" src="assets/Star_rating_4_of_5.png" alt="4 stars" />
+        <p class="age-recommendation">Recommended age: 13–17</p>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="add-button">
+    <a href="submit.html" class="button-style">+ Add Tool</a>
+  </div>
+</main>
+
+<a href="index.html">
+  <img src="assets/logo.png" alt="Logo" class="logo-bottom-right" />
+</a>
+
+<script>
+  function filterTools() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const tools = document.querySelectorAll('#toolsContainer .tool-card, #toolsContainer .tool-link');
+
+    tools.forEach(tool => {
+      const title = tool.querySelector('h3').textContent.toLowerCase();
+      const desc = tool.querySelector('p').textContent.toLowerCase();
+
+      if (title.includes(filter) || desc.includes(filter)) {
+        tool.style.display = '';
+      } else {
+        tool.style.display = 'none';
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded' , async () => {
+    
+     try{
+        const response = await fetch('http://localhost:3000/get-data' , {
+            method : 'GET',
+            headers : {
+                'Content-Type': 'application/json'
+            }
+        })
+        if(!response.ok){
+            throw new Error('Netzwerkverbindung fehlgeschlagen.');
+        }
+            const data = await response.json();
+
+            console.log(data);
+
+            const container = document.getElementById('toolsContainer');
+
+            data.forEach(tool => {
+
+              // <a class="tool-card">
+              const link = document.createElement("a");
+              link.href = tool.fileURL;
+              link.target = "_blank";
+              link.className = "tool-card tool-link";
+
+              // <h3>uploadTitle</h3>
+              const title = document.createElement("h3");
+              title.textContent = tool.uploadTitle;
+
+              // <img> thumbnailURL
+              const thumbnail = document.createElement("img");
+              thumbnail.src = tool.thumbnailURL;
+              thumbnail.alt = tool.uploadTitle;
+
+              // <p>uploadDescription</p>
+              const desc = document.createElement("p");
+              desc.textContent = tool.uploadDescription;
+
+              // <img> rating
+              /*const rating = document.createElement("img");
+              stars.src = tool.stars;
+              stars.alt = "Rating";
+              stars.className = "rating-stars";
+              */
+
+              // <p>ageRecommandation</p>
+              const ageReco = document.createElement("p");
+              ageReco.className = "age-recommendation";
+              ageReco.textContent = tool.ageRecommendation;
+
+              // alles an das äußere a-Element anfügen
+              // besser mit appendChild arbeiten -> leichter wartbarer Code 
+              link.appendChild(title);
+              link.appendChild(thumbnail);
+              link.appendChild(desc);
+              //link.appendChild(rating);
+              link.appendChild(ageReco);
+
+              // a-Element an den Container anfügen
+              container.appendChild(link);
+            });
+
+      } catch (error){
+            console.error('Ein Fehler bei der Datenübertragung ist aufgetreten.' , error);
+      }
+
+      // toolbox sorting
+      /*
+        const tools = Array.from(container.querySelectorAll('.tool-card, .tool-link'));
+
+        tools.sort((a, b) => {
+          const titleA = a.querySelector('h3').textContent.trim().toLowerCase();
+          const titleB = b.querySelector('h3').textContent.trim().toLowerCase();
+            return titleA.localeCompare(titleB);
+        });
+
+          while (container.firstChild) {
+            container.removeChild(container.firstChild);
+          }
+
+          tools.forEach(tool => container.appendChild(tool));
+
+            const currentPath = window.location.pathname.split("/").pop();
+            const navLinks = document.querySelectorAll(".navbar a");
+            navLinks.forEach(link => {
+              if (link.getAttribute("href") === currentPath) {
+                link.classList.add("active");
+              } else {
+                link.classList.remove("active");
+              }
+          }); 
+      */
+  });
+  
+</script>
+
+<script src="searchData.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

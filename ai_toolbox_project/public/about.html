@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About the AI Literacy Toolbox</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #1e1f23;
+      margin: 0;
+      padding: 0;
+    }
+
+    .scroll-container {
+      background-color: #2c2e33;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 100px auto 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      color: #ddd;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #f07f0e;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .emoji-title {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .intro {
+      text-align: center;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #ccc;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-split > div {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .section-split h2 {
+      font-size: 1.4rem;
+      color: #f07f0e;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-split p {
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .team-section {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .team-section h2 {
+      font-size: 1.6rem;
+      color: #f07f0e;
+      margin-bottom: 1rem;
+    }
+
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .team-member {
+      background-color: #393b40;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      color: #f0a950;
+      font-weight: 500;
+      min-width: 150px;
+      text-align: center;
+    }
+
+    .supervisor {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #ccc;
+    }
+
+    .supervisor a {
+      color: #f07f0e;
+      text-decoration: underline;
+    }
+
+    .supervisor a:hover {
+      color: #d26900;
+      text-decoration: none;
+    }
+
+    .contact-box {
+      background-color: #2b2c31;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: #f07f0e;
+      font-weight: 500;
+    }
+
+    .contact-box a {
+      color: #f07f0e;
+      text-decoration: underline;
+    }
+
+    .contact-box a:hover {
+      color: #d26900;
+      text-decoration: none;
+    }
+
+    .logo-bottom-right {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      height: 48px;
+      width: auto;
+      z-index: 1000;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 700px) {
+      .section-split {
+        flex-direction: column;
+      }
+
+      .team-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="header-inner">
+    <nav class="navbar">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="ai_literacy.html">AI Literacy</a>
+      <a href="tools.html">All Tools</a>
+    </nav>
+    <div class="header-right">
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Search..." />
+        <button onclick="search()">🔍</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="scroll-container">
+  <h1><span class="emoji-title"></span>About the AI Literacy Toolbox</h1>
+
+  <p class="intro">
+    The AI Literacy Toolbox is a student-built platform designed to help people better understand artificial intelligence. 
+    Through interactive tools and playful experiences, we aim to make AI concepts accessible, critical, and engaging.
+  </p>
+
+  <div class="section-split">
+    <div>
+      <h2> Why this Toolbox?</h2>
+      <p>
+        AI is shaping the world – but most people don’t know how it really works. 
+        This toolbox was created to bridge that knowledge gap, offering easy-to-use tools that teach, challenge, and spark curiosity.
+      </p>
+    </div>
+    <div>
+      <h2> How it started</h2>
+      <p>
+        The project began at the University of Duisburg-Essen as part of a research seminar. 
+        We explored AI literacy frameworks, evaluated learning resources, and built a collection of tools to help others engage meaningfully with AI.
+      </p>
+    </div>
+  </div>
+
+  <section class="team-section">
+    <h2> Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-member">Khan Sohail</div>
+      <div class="team-member">Kevin Flotow</div>
+      <div class="team-member">Mohammadreza Zahedizadehgan</div>
+      <div class="team-member">Rabia Karabulut</div>
+      <div class="team-member">Tharani Uruthirakumar</div>
+      <div class="team-member">Gousiha Rammohan</div>
+    </div>
+
+    <div class="supervisor">
+      Supervised by  
+      <a href="https://iachounta.com/website/" target="_blank" rel="noopener noreferrer">
+        Prof. Dr. Irene-Angelica Chounta
+      </a>
+    </div>
+  </section>
+
+  <div class="contact-box">
+     Want to collaborate or improve this platform?  
+    <a href="contact.html">Get in touch with us</a> — we’d love to hear from you.
+  </div>
+</main>
+
+<a href="about.html">
+  <img src="assets/logo.png" alt="Logo" class="logo-bottom-right" />
+</a>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll(".navbar a");
+    navLinks.forEach(link => {
+      if (link.getAttribute("href") === currentPath) {
+        link.classList.add("active");
+      } else {
+        link.classList.remove("active");
+      }
+    });
+  });
+</script>
+
+<script src="searchData.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
