@@ -20,7 +20,7 @@ const logger = createLogger({
   transports: [
     new transports.Console(),                                                      // Terminal Ausgabe
     new transports.File({ filename: 'logs/combined.log' }),                        // alles in combined.log um
-    new transports.File({ filename: 'logs/error.log' , level: 'error'})            // nur Fehler in error.log
+    new transports.File({ filename: 'logs/error.log' , level: 'error'})            // error in eigene Datei schreiben
   ]
 });
 

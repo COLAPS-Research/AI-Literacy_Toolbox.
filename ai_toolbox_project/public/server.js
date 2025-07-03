@@ -17,9 +17,6 @@ const nodemailer = require('nodemailer');
 const mongoose = require('mongoose');
 
 const app = express();
-// um Daten aus der .env-Datei zu erhalten
-dotenv.config();
-
 
 // logger importieren
 const logger = require('./logger.js');
@@ -29,8 +26,8 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('Mongoose verbunden mit MongoDB'))
-.catch(err => console.error('Mongoose-Verbindung fehlgeschlagen:', err));
+.then(() => logger.info('Mongoose verbunden mit MongoDB'))
+.catch(err => logger.error('Mongoose-Verbindung fehlgeschlagen:', err));
 
 const port = process.env.PORT;
 

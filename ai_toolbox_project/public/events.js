@@ -108,7 +108,7 @@ submitButton.addEventListener("click" , async (event) => {
 
     // prüfen ob Input leer ist
     if (!email) {
-      alert("Bitte gib eine E-Mail-Adresse ein.");
+      alert("Bitte gib eine gültige E-Mail-Adresse ein.");
       return;
     }
 
@@ -130,7 +130,6 @@ submitButton.addEventListener("click" , async (event) => {
 
     } catch (error) {
       // Falls z. B. keine Verbindung zum Server möglich ist
-      //logger.error('Fehler beim Absenden der Email' , err.message);
       console.error('Fehler beim Senden:', error);
       alert('Beim Senden ist ein Fehler aufgetreten.');
     }
