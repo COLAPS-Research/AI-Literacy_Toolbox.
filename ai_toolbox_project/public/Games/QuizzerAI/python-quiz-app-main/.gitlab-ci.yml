@@ -1,0 +1,88 @@
+stages:
+  - lint
+  - test
+  - deployment
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}  # Cache key based on branch
+  paths:
+    - .venv/  # Cache the virtual environment directory
+
+black:
+  stage: lint
+  image: python:3.13.1
+  before_script:
+    - test -d .venv && echo "Using cached .venv" || python -m venv .venv
+    - source .venv/bin/activate
+    - pip install black
+  script:
+    - black src/
+
+unit-tests:
+  stage: test
+  image: python:3.13.1
+  variables:
+    PYTHONPATH: "$CI_PROJECT_DIR/src"
+  before_script:
+    - apt-get update && apt-get install -y xvfb
+    - test -d .venv && echo "Using cached .venv" || python -m venv .venv
+    - source .venv/bin/activate
+    - pip install -r requirements.txt
+  script:
+    - python -m unittest tests.TestDataStructures.TestDataStructures
+    - python -m unittest src.tests.TestSettings.TestSettings
+
+create-binary:
+  stage: deployment
+  image: python:3.13.1
+  before_script:
+    - test -d .venv && echo "Using cached .venv" || python -m venv .venv
+    - source .venv/bin/activate
+    - pip install pyinstaller
+  script:
+    - pyinstaller --onefile --paths=./src src/main.py
+  artifacts:
+    paths:
+      - dist/main
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+# ATTEMPT 1:
+# > THIS WINDOWS RUNNER DOES NOT WORK BC UNI DOES NOT PROVIDE A WINDOWS RUNNER (probably in the future)!
+#create-windows-binary:
+#  stage: deployment
+#  tags:
+#    - windows  # Ensure this tag matches the Windows runner
+#  image: mcr.microsoft.com/windows/servercore:ltsc2022  # Base Windows image
+#  before_script:
+#    - powershell -Command "python -m venv .venv"
+#    - powershell -Command ".\\.venv\\Scripts\\Activate.ps1"
+#    - powershell -Command "pip install pyinstaller"
+#  rules:
+#    - if: '$CI_COMMIT_BRANCH == "main"'
+#      when: always
+#  script:
+#    - powershell -Command "pyinstaller --onefile --paths=src src\\main.py"
+#  artifacts:
+#    paths:
+#      - dist\\main.exe
+
+# ATTEMPT 2:
+#create-windows-binary:
+#  stage: deployment
+#  image: ubuntu:22.04
+#  before_script:
+#    - apt-get update && apt-get install -y python3 python3-venv wine64 python3-pip
+#    - python3 -m venv .venv
+#    - source .venv/bin/activate
+#    - pip install pyinstaller
+#  script:
+#    # Generate Windows executable with PyInstaller using Wine
+#    - wine pyinstaller --onefile --paths=./src src/main.py
+#  artifacts:
+#    paths:
+#      - dist/main.exe
+#  rules:
+#    - if: '$CI_COMMIT_BRANCH == "main"'
+#      when: always
