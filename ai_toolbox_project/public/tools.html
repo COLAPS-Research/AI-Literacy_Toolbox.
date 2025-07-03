@@ -102,6 +102,7 @@
   }
 
   document.addEventListener('DOMContentLoaded' , async () => {
+
     // html toolbox container mit db inhalt bestücken
      try{
         const response = await fetch('http://localhost:3000/get-data' , {
@@ -147,6 +148,40 @@
               stars.src = `assets/Star_rating_${starCount}_of_5.png`;
               stars.alt = "Rating";
               stars.className = "rating-stars";
+
+              stars.addEventListener("click", function (event) {
+
+                // verhindert eventlistener vom Eltern-Element
+                event.stopPropagation(); 
+
+                // stoppt die Weiterleitung durch links
+                event.preventDefault();
+
+                // neues Element für das ranking
+                const ratingMenu = document.getElementById("rating-menu");
+
+                // Menü auf Klick der Mausposition
+                ratingMenu.style.left = `${event.pageX}px`;
+                ratingMenu.style.top = `${event.pageY}px`;
+                ratingMenu.style.display = "block"; 
+
+                ratingMenu.innerHTML = '';   // leeren falls merhfach geklickt wird
+
+                for( i=0 ; i <5 ; i ++){
+
+                  const ratingValue = (i*0.5).toFixed(1);
+
+                  // neues img-Element für jede Bewertung
+                    const ratingImg = document.createElement("img");
+                    ratingImg.src = `assets/Star_rating_${ratingValue}_of_5.png`; 
+                    ratingImg.alt = `Bewertung ${ratingValue}`; 
+                    ratingImg.style.cursor = "pointer"; 
+                    ratingImg.style.margin = "2px"; 
+
+                     // Bild der Bewertung anfügen
+                    ratingMenu.appendChild(ratingImg);
+                }
+              });
 
               // <p>ageRecommandation</p>
               const ageReco = document.createElement("p");
@@ -201,6 +236,11 @@
 
 <script src="searchData.js"></script>
 <script src="script.js"></script>
+
+  <!-- Verstecktes Menü -->
+  <div id="rating-menu" style="position: absolute; display: none; z-index: 1000; background: white; border: 1px solid #ccc; padding: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+    <!-- Sterne  dynamisch per JS einfügen -->
+  </div>
 
 </body>
 </html>
