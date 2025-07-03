@@ -46,7 +46,7 @@ const userUploadSchema = new mongoose.Schema({
     reviewNotes : { type : String },
     reviewedByAdmin: { type: String ,
                        default: null},
-    rating : { type: ratingSchema }
+    rating : { type: ratingSchema , default: () => ({}) }
   });
 
 // Modell definieren -> stellt eine Blaupause zu Verfügung 

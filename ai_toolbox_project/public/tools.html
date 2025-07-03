@@ -59,7 +59,7 @@
         <h3>Mystery Cat</h3>
         <img src="assets/MurderMystery.png" alt="Mystery Cat" />
         <p>Learn about pattern recognition through an interactive game.</p>
-        <img class="rating-stars" src="assets/Star_rating_5_of_5.png" alt="5 stars" />
+        <img class="rating-stars" src="assets/Star_rating_5.0_of_5.png" alt="5 stars" />
         <p class="age-recommendation">Recommended age: 18+</p>
       </a>
 
@@ -67,7 +67,7 @@
         <h3>Quizzer AI</h3>
         <img src="assets/Quiz.png" alt="Quizzer AI" />
         <p>Test your knowledge about AI with our quiz.</p>
-        <img class="rating-stars" src="assets/Star_rating_4_of_5.png" alt="4 stars" />
+        <img class="rating-stars" src="assets/Star_rating_4.0_of_5.png" alt="4 stars" />
         <p class="age-recommendation">Recommended age: 13–17</p>
       </a>
 
@@ -102,7 +102,7 @@
   }
 
   document.addEventListener('DOMContentLoaded' , async () => {
-    
+    // html toolbox container mit db inhalt bestücken
      try{
         const response = await fetch('http://localhost:3000/get-data' , {
             method : 'GET',
@@ -141,23 +141,24 @@
               desc.textContent = tool.uploadDescription;
 
               // <img> rating
-              /*const rating = document.createElement("img");
-              stars.src = tool.stars;
+              const stars = document.createElement("img");
+              // konvertiert die Ausgabe wieder zu einem Float -> default von 0 zu 0.0 weil kein rating vorhanden
+              const starCount = tool.rating.averageRating.toFixed(1);
+              stars.src = `assets/Star_rating_${starCount}_of_5.png`;
               stars.alt = "Rating";
               stars.className = "rating-stars";
-              */
 
               // <p>ageRecommandation</p>
               const ageReco = document.createElement("p");
               ageReco.className = "age-recommendation";
-              ageReco.textContent = tool.ageRecommendation;
+              ageReco.textContent = "Recommended age: " + tool.ageRecommendation;
 
               // alles an das äußere a-Element anfügen
               // besser mit appendChild arbeiten als mit concat innerHTML -> leichter wartbarer Code 
               link.appendChild(title);
               link.appendChild(thumbnail);
               link.appendChild(desc);
-              //link.appendChild(rating);
+              link.appendChild(stars);
               link.appendChild(ageReco);
 
               // a-Element an den Container anfügen
