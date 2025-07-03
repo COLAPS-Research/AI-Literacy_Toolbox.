@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .quiz-card {
+            background: rgba(34, 34, 34, 0.98);
+            border-radius: 22px;
+            box-shadow: 0 8px 32px 0 rgba(240, 127, 14, 0.18), 0 0 24px 2px #f07f0e44;
+            border: none;
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 600px;
+            width: 100%;
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+        .quiz-title {
+            color: #f07f0e;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1.2px;
+            margin: 0;
+        }
+        .quiz-score {
+            color: #ffb366;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .progress {
+            height: 18px;
+            background: #232526;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #f07f0e 0%, #ffb366 100%);
+            color: #232526;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 10px;
+        }
+        #learning-material h4, #learning-material p {
+            color: #ffb366;
+        }
+        .question-text {
+            color: #f07f0e;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.5px;
+        }
+        .option-btn {
+            min-width: 180px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px 0 #f07f0e33;
+            transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+            background: linear-gradient(90deg, #f07f0e 0%, #ffb366 100%);
+            color: #232526;
+            border: none;
+            margin-bottom: 0.7rem;
+        }
+        .option-btn:hover, .option-btn:focus {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 6px 24px 0 #f07f0e66, 0 0 16px 2px #ffb36699;
+            background: linear-gradient(90deg, #ffb366 0%, #f07f0e 100%);
+            color: #232526;
+        }
+        .option-btn.chosen {
+            box-shadow: 0 0 0 3px #f07f0e, 0 2px 8px 0 #f07f0e33;
+            background: linear-gradient(90deg, #ffb366 0%, #f07f0e 100%);
+            color: #232526;
+            border: 2px solid #f07f0e;
+        }
+        #feedback {
+            color: #ffb366;
+            font-size: 1.15rem;
+            margin-top: 1.2rem;
+            padding: 1rem;
+            background: #232526;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px 0 #f07f0e33;
+            text-align: center;
+        }
+        #result-screen h2 {
+            color: #f07f0e;
+            font-weight: 700;
+        }
+        #result-screen p {
+            color: #ffb366;
+            font-size: 1.2rem;
+        }
+        .btn-primary, .btn-secondary {
+            font-weight: 600;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        .option-btn.correct-answer {
+            background: linear-gradient(90deg, #4caf50 0%, #43e97b 100%);
+            color: #232526;
+            border: 2px solid #43e97b;
+            box-shadow: 0 0 0 3px #43e97b99, 0 2px 8px 0 #43e97b33;
+        }
+        .option-btn.incorrect-answer {
+            background: linear-gradient(90deg, #ff4e4e 0%, #ffb366 100%);
+            color: #232526;
+            border: 2px solid #ff4e4e;
+            box-shadow: 0 0 0 3px #ff4e4e99, 0 2px 8px 0 #ff4e4e33;
+        }
+        .feedback-correct {
+            color: #43e97b;
+        }
+        .feedback-incorrect {
+            color: #ff4e4e;
+        }
+    </style>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="quiz-card w-100">
+        <div class="quiz-header">
+            <span class="quiz-title">QuizzerAI</span>
+            <span class="quiz-score" id="score-label">Score: <span id="score">0</span></span>
+        </div>
+        <div class="progress mb-3">
+            <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+        </div>
+        <div id="learning-material" class="mb-4 p-3 rounded bg-secondary bg-opacity-25">
+            <h4 id="subtopic"></h4>
+            <p id="content"></p>
+        </div>
+        <div id="quiz-container" class="mb-4">
+            <div id="questions" class="mb-3"></div>
+            <div id="answer-buttons" class="d-grid gap-2"></div>
+            <button id="next-button" class="btn btn-warning mt-3" style="display:none;">Next Question</button>
+        </div>
+        <div id="feedback" class="d-none"></div>
+        <div id="result-screen" style="display:none; text-align:center;">
+            <h2>Quiz Complete!</h2>
+            <p id="final-score"></p>
+            <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+            <a href="/" class="btn btn-secondary ms-2">Back to Start</a>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // --- Professional progress bar and score update ---
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function getTopicFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('topic');
+    }
+
+    $(function() {
+        const selectedTopic = getTopicFromUrl();
+        $.get("/learning_material", function(data) {
+            if (selectedTopic) {
+                // Flatten all questions for the selected topic
+                questions = data
+                    .filter(mat => mat.topic === selectedTopic)
+                    .flatMap(mat => mat.questions);
+            } else {
+                questions = data.flatMap(mat => mat.questions);
+            }
+            score = 0;
+            currentQuestionIndex = 0;
+            loadQuestion();
+        });
+        $('#next-button').on('click', nextQuestion);
+    });
+
+    function updateProgressBar() {
+        const percent = Math.round(((currentQuestionIndex + 1) / questions.length) * 100);
+        $('#progress-bar').css('width', percent + '%').text(percent + '%');
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            endQuiz();
+            return;
+        }
+        const question = questions[currentQuestionIndex];
+        $('#questions').html(`<div class="question-text">${question.question_text}</div>`);
+        $('#answer-buttons').empty();
+        $('#feedback').addClass('d-none').text('');
+        $('#next-button').hide();
+        // Remove any previous explanations
+        $('.option-explanation').remove();
+        question.options.forEach((opt, index) => {
+            $('#answer-buttons').append(
+                `<button class="option-btn" id="btn${index}" onclick="submitAnswer(${index})">${opt.answer_text}</button>`
+            );
+        });
+        updateProgressBar();
+        $('#score').text(score);
+    }
+
+    function submitAnswer(answerIndex) {
+        const question = questions[currentQuestionIndex];
+        const correctAnswer = question.answer;
+        $(".option-btn").prop('disabled', true);
+        // Remove previous highlight classes
+        $(".option-btn").removeClass('chosen correct-answer incorrect-answer');
+        if (answerIndex === correctAnswer) {
+            // Correct: highlight chosen button green
+            $("#btn" + answerIndex).addClass('correct-answer');
+            // Show explanation for correct answer only
+            $(`#btn${correctAnswer}`).after(`<div class='option-explanation'>${question.options[correctAnswer].explanation || ''}</div>`);
+        } else {
+            // Incorrect: highlight chosen button red, correct answer green
+            $("#btn" + answerIndex).addClass('incorrect-answer');
+            $("#btn" + correctAnswer).addClass('correct-answer');
+            // Show explanation for correct answer only
+            $(`#btn${correctAnswer}`).after(`<div class='option-explanation'>${question.options[correctAnswer].explanation || ''}</div>`);
+        }
+        let feedbackMessage = (answerIndex === correctAnswer)
+            ? "<span class='feedback-correct'><strong>Correct!</strong></span>"
+            : "<span class='feedback-incorrect'><strong>Incorrect!</strong> The correct answer is highlighted.</span>";
+        if (answerIndex === correctAnswer) score++;
+        $('#score').text(score);
+        $('#feedback').removeClass('d-none').html(feedbackMessage);
+        $('#next-button').show();
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        loadQuestion();
+    }
+
+    function endQuiz() {
+        $('.container > *').hide();
+        $('#result-screen').show();
+        $('#final-score').text(`Your score: ${score} out of ${questions.length}`);
+    }
+
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        $('.container > *').show();
+        $('#result-screen').hide();
+        const selectedTopic = getTopicFromUrl();
+        $.get("/learning_material", function(data) {
+            if (selectedTopic) {
+                questions = data
+                    .filter(mat => mat.topic === selectedTopic)
+                    .flatMap(mat => mat.questions);
+            } else {
+                questions = data.flatMap(mat => mat.questions);
+            }
+            loadQuestion();
+        });
+    }
+</script>
+</body>
+</html>
