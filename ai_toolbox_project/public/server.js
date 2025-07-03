@@ -22,7 +22,7 @@ dotenv.config();
 
 
 // logger importieren
-const logger = require('./logger');
+const logger = require('./logger.js');
 
 // database conection aus der .env file holen -> security
 mongoose.connect(process.env.MONGO_URI, {

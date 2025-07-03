@@ -18,9 +18,9 @@ const logger = createLogger({
 
   // wohin wird geloggt -> einfache textdatei in loger folder 
   transports: [
-    new transports.Console(),                                     // Terminal Ausgabe
-    new transports.File({ filename: 'logs/combined.log' }),       // alles in combined.log um
-    new transports.File({ filename: 'logs/error.log'})            // nur Fehler in error.log
+    new transports.Console(),                                                      // Terminal Ausgabe
+    new transports.File({ filename: 'logs/combined.log' }),                        // alles in combined.log um
+    new transports.File({ filename: 'logs/error.log' , level: 'error'})            // nur Fehler in error.log
   ]
 });
 
