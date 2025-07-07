@@ -165,7 +165,7 @@
                   // prüfne ob das rating Menü aktuell offen ist
                   const isOpen = ratingMenu.style.display !== 'none' && ratingMenu.style.display !== '';
                   
-                  // wenn offen und Klick außerhalb
+                  // wenn offen und Klick außerhalb -> schließen
                   if (isOpen && !ratingMenu.contains(event.target)) {
                     ratingMenu.style.display = 'none';
                   }
