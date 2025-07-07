@@ -160,22 +160,34 @@
                 // neuesHTML- Element für das ranking -> steht über allem mit z-index
                 const ratingMenu = document.getElementById("rating-menu");
 
-                // Menü auf Klick der Mausposition 
-                /*
-                ratingMenu.style.left = `${event.pageX}px`;
-                ratingMenu.style.top = `${event.pageY}px`;
-                ratingMenu.style.display = "block"; 
-                */
+                document.addEventListener('click', function(event) {
+                
+                  // prüfne ob das rating Menü aktuell offen ist
+                  const isOpen = ratingMenu.style.display !== 'none' && ratingMenu.style.display !== '';
+                  
+                  // wenn offen und Klick außerhalb
+                  if (isOpen && !ratingMenu.contains(event.target)) {
+                    ratingMenu.style.display = 'none';
+                  }
+                });
                 
                 // zentral in der Mitte vom Dokument -> außerhalb von DokumentesFluss
                 ratingMenu.style.left = "50%";
                 ratingMenu.style.top = "50%";
                 ratingMenu.style.transform = "translate(-50%, -50%)";
                 ratingMenu.style.position = "fixed";
-                ratingMenu.style.display = "block";
+                ratingMenu.style.display = "flex";
+                ratingMenu.style.border = "none";
+                ratingMenu.style.borderRadius = '10px';
+                ratingMenu.style.flexDirection = 'column';
+                ratingMenu.style.maxHeight = '400px';
+                ratingMenu.style.maxWidth = '333px';
+                ratingMenu.style.overflowY = 'auto';
+                ratingMenu.style.overflowX = 'hidden';
                 ratingMenu.innerHTML = '';   // leeren falls merhfach geklickt wird
 
-                for( i=0 ; i <5 ; i ++){
+                // jede mögliche Bewertung wird angezeigt
+                for( i=0 ; i <=10 ; i ++){
 
                   const ratingValue = (i*0.5).toFixed(1);
 
@@ -183,6 +195,9 @@
                     const ratingImg = document.createElement("img");
                     ratingImg.src = `assets/Star_rating_${ratingValue}_of_5.png`; 
                     ratingImg.alt = `Bewertung ${ratingValue}`; 
+                    ratingImg.style.flex = '1';
+                    ratingImg.style.width = '100%';
+                    ratingImg.style.objectFit = 'cover';
                     ratingImg.style.cursor = "pointer"; 
                     ratingImg.style.margin = "2px"; 
 
