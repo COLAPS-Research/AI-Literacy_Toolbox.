@@ -26,6 +26,11 @@
       color: #aaa;
       margin-top: 0.3rem;
     }
+    #ratingmenu img:focus {
+      background-color: rgb(245, 149, 7);
+      outline: none;
+    }
+
   </style>
 </head>
 <body>
@@ -160,12 +165,26 @@
                 // neuesHTML- Element für das ranking -> steht über allem mit z-index
                 const ratingMenu = document.getElementById("rating-menu");
 
+                // auswahl des ratings durch click
+                ratingMenu.addEventListener('click' , (event) => {
+                  // alle Bilder neutral darstellen
+                  if (event.target.tagName === 'IMG'){
+                    // umwandeln in Array -> leichter zu bearbeiten
+                    [...ratingMenu.querySelectorAll('img')].forEach(img => {
+                      img.style.backgroundColor = '';
+                    })
+                    // ausgewähltes Bild hervorheben und focus darauf setzen
+                    event.target.style.backgroundColor = 'orange';
+                    event.target.focus();
+                  }
+                });
+
                 document.addEventListener('click', function(event) {
                 
                   // prüfne ob das rating Menü aktuell offen ist
                   const isOpen = ratingMenu.style.display !== 'none' && ratingMenu.style.display !== '';
                   
-                  // wenn offen und Klick außerhalb
+                  // wenn offen und Klick außerhalb -> schließen
                   if (isOpen && !ratingMenu.contains(event.target)) {
                     ratingMenu.style.display = 'none';
                   }
@@ -200,6 +219,7 @@
                     ratingImg.style.objectFit = 'cover';
                     ratingImg.style.cursor = "pointer"; 
                     ratingImg.style.margin = "2px"; 
+                    ratingImg.tabIndex = '0';
 
                      // Bild der Bewertung anfügen
                     ratingMenu.appendChild(ratingImg);
