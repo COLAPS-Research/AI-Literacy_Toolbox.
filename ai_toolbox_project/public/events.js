@@ -32,6 +32,13 @@ function getAgeRecommandation(){
   const recom = document.getElementById('ageRecommendation').value;
   return recom;
 }
+function getUploadTags(){
+  const tags = document.getElementById('uploadTags').value;
+  const arrayTags = tags.split(',');                        // macht aus String getrennt durch , ein Array
+  const noBlankArray = arrayTags.map(tag => tag.trim());    // entfernt blanks vor und hinter jedem element 
+  const noDuplicates = [...new Set(noBlankArray)];          // entfernt dopplete elemente durch ein Set
+  return noDuplicates;
+}
 
 // SUBMIT-BUTTON event
 const submitButton = document.getElementById("submit-button-js");
@@ -64,8 +71,7 @@ submitButton.addEventListener("click" , async (event) => {
     const thumbnailURL = getThumbnail();
     const ageRecommendation = getAgeRecommandation();
     const uploadTitle = getTitle();
-
-    console.log('input-seltion done');
+    const uploadTags = getUploadTags();
 
     //------------------------------------------Add-Entry section----------------------------------------------//
   
@@ -83,8 +89,8 @@ submitButton.addEventListener("click" , async (event) => {
                 uploadTitle ,     
                 uploadDescription , 
                 fileURL ,         
-                thumbnailURL : String(thumbnailURL)   
-               // uploadTags :
+                thumbnailURL : String(thumbnailURL) ,  
+                uploadTags 
             })
         });
 

@@ -157,14 +157,22 @@
                 // stoppt die Weiterleitung durch links
                 event.preventDefault();
 
-                // neues Element für das ranking
+                // neuesHTML- Element für das ranking -> steht über allem mit z-index
                 const ratingMenu = document.getElementById("rating-menu");
 
-                // Menü auf Klick der Mausposition
+                // Menü auf Klick der Mausposition 
+                /*
                 ratingMenu.style.left = `${event.pageX}px`;
                 ratingMenu.style.top = `${event.pageY}px`;
                 ratingMenu.style.display = "block"; 
-
+                */
+                
+                // zentral in der Mitte vom Dokument -> außerhalb von DokumentesFluss
+                ratingMenu.style.left = "50%";
+                ratingMenu.style.top = "50%";
+                ratingMenu.style.transform = "translate(-50%, -50%)";
+                ratingMenu.style.position = "fixed";
+                ratingMenu.style.display = "block";
                 ratingMenu.innerHTML = '';   // leeren falls merhfach geklickt wird
 
                 for( i=0 ; i <5 ; i ++){

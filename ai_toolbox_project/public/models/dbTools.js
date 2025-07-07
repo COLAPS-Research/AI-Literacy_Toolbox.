@@ -40,7 +40,7 @@ const userUploadSchema = new mongoose.Schema({
     thumbnailURL: { type : String ,
                     required:true},
     uploadTags : {type : [String] ,
-                  default: []},
+                  required:true},
     reviewStatus : { type : String ,
                      default: "pending"},
     reviewNotes : { type : String },
