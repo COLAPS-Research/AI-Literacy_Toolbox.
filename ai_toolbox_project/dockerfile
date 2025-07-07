@@ -18,6 +18,7 @@ EXPOSE 3000
 
 # Start the application
 CMD [ "npm", "start" ]
+
 # Use official Nginx image
 FROM nginx:alpine
 
