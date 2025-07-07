@@ -1,23 +1,36 @@
-version: "3.8"
 services:
-  app:
-    build: .
-    container_name: ai_toolbox_app
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     ports:
-      - "3000:3000"
+      - "8080:8080" # <-- Fixed the missing quote
     env_file:
       - .env
-    depends_on:
-      - mongo
-    volumes:
-      - .:/app
+    depends_on: # <-- Added this section to solve the race condition
+      mongo:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    # If your frontend needs to wait for the backend, you can add a depends_on here too.
+
   mongo:
-    image: mongo:7
-    container_name: ai_toolbox_mongo
-    restart: always
+    image: mongo:6.0 # <-- Pinned to a specific, stable version
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - mongo-data:/data/db
+    healthcheck: # <-- Added a healthcheck for the backend to use
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
 volumes:
-  mongo_data:
+  mongo-data:```
