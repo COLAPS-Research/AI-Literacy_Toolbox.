@@ -168,7 +168,7 @@
 
                 // auswahl des ratings durch click
                 ratingMenu.addEventListener('click' , (event) => {
-                  // alle Bilder neutral darstellen
+                  // alle Bilder neutral darstellen -> ohne Hintegrunffarbe
                   if (event.target.tagName === 'IMG'){
                     // umwandeln in Array -> leichter zu bearbeiten
                     [...ratingMenu.querySelectorAll('img')].forEach(img => {
@@ -177,6 +177,15 @@
                     // ausgewähltes Bild hervorheben und focus darauf setzen
                     event.target.style.backgroundColor = 'green';
                     event.target.focus();
+                  }
+                });
+
+                // das letzte Bild im Fokus speichern -> sonst Button im Fokus
+                // focusin -> nimmt fokuswechsel wahr und ändert das letzte bild im fokus
+                let lastActiveIMG = null;
+                ratingMenu.addEventListener("focusin", (e) => {
+                  if (e.target.tagName === "IMG") {
+                    lastActiveIMG = e.target;
                   }
                 });
 
@@ -227,7 +236,22 @@
                      // Bild der Bewertung anfügen
                     ratingMenu.appendChild(ratingImg);
                 }
-                // hier noch Confirm-Button zum bestättigen der Bewertung einfügen
+                // hier noch Confirm-Button zum bestättigen der Bewertung einfügen -> mit evenlistener
+                const ratingButton = document.createElement("button");
+                ratingButton.className = "rating-Button";
+                ratingButton.innerText = "Deploy rating";
+                // Button darf nicht fokussierbar sein -> sonst img-Element nciht mehr im Fokus
+                ratingButton.tabIndex = '-1';
+                // wähle das aktive Element und nehme die sternewertung aus dem dataset
+                ratingButton.addEventListener('click' , () => {
+                  if(lastActiveIMG){
+                    console.log(lastActiveIMG.dataset.wert);
+                  } else {
+                    console.log('Rating could not be found.');
+                  }
+                });
+
+                ratingMenu.appendChild(ratingButton);
               });
 
               // <p>ageRecommandation</p>
