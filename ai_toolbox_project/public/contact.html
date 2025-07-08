@@ -123,7 +123,7 @@
     <label for="message">Message*</label>
     <textarea id="message" rows="5" required></textarea>
 
-    <button type="submit" class="submit-button">Send Message</button>
+    <button type="submit" class="submit-button" id="submit-button">Send Message</button>
   </form>
 </main>
 
@@ -229,6 +229,13 @@
 </a>
 
 <script>
+
+  // eventListener für den contact-button
+  const submit = document.getElementById('submit-button');
+  submit.addEventListener('click' , () => {
+    console.log('test');
+  })
+
   document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
       const expanded = button.getAttribute('aria-expanded') === 'true';

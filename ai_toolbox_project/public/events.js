@@ -1,5 +1,8 @@
 //------------------------------------------Getter-Function section----------------------------------------------//
-
+function getName(){
+  const name = document.getElementById("name").value;
+  return name;
+}
 function validEmail(email){
   const regex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
   return regex.test(email);
@@ -43,26 +46,31 @@ function getUploadTags(){
 // SUBMIT-BUTTON event
 const submitButton = document.getElementById("submit-button-js");
 submitButton.addEventListener("click" , async (event) => {
+  
   // verhindert neuLaden der seite
   event.preventDefault();
 
-//------------------------------------------Get-Input section----------------------------------------------//
+//------------------------------------------Validate-Input section----------------------------------------------//
   
-    // additional validation of the userinput  
-    const uploaderEmail = getEmail();
-    if(validEmail(uploaderEmail)){
+  // check uploadername
+    const uploaderName = getName();
+    if(uploaderName.trim() === ''){
+      throw new Error('Uploadername cant be empty.');
+    }
 
-    } else {
-        console.warn("Email validation was not succesfull.")
+  // check uploaderemail 
+    const uploaderEmail = getEmail();
+    if(!validEmail(uploaderEmail)){
+      throw new Error('Please enter a valid Email adress.');
     }
     
+  // check uploadType
     const types = ["game" , "education" , "other"];
     const uploadType = getType();
-    if(types.includes(uploadType)){
-      
-    } else {
-      console.warn("Wrong Input.")
+    if(!types.includes(uploadType)){
+      throw new Error(`Invalid input : ${uploadType}`);
     }
+      
     
     // server can save the uploadDate as an Date object
     const uploadDate = new Date().toISOString(); 
@@ -82,6 +90,7 @@ submitButton.addEventListener("click" , async (event) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                uploaderName,
                 uploaderEmail ,   
                 uploadType ,      
                 uploadDate ,      

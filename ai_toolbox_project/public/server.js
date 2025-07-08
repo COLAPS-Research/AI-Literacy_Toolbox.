@@ -62,12 +62,13 @@ app.get('/get-data' , async (req , res) => {
 
 // der Server erhält Daten vom Clienten mit der POST Anfrage
 app.post('/add-entry', async (req, res) => {
-    const {uploaderEmail, uploadType , uploadDate , ageRecommendation , uploadTitle,
+    const {uploaderName , uploaderEmail, uploadType , uploadDate , ageRecommendation , uploadTitle,
             uploadDescription , fileURL , thumbnailURL , uploadTags } = req.body;
 
     try {
 
         const newEntry = new Tool({
+            uploaderName: uploaderName ,
             uploaderEmail: uploaderEmail ,
             uploadType: uploadType ,
             uploadDate: uploadDate ,

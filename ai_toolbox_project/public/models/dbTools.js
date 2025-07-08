@@ -21,6 +21,8 @@ const mongoose = require('mongoose');
 
 // Definiere das Schema -> definiert die genaue Struktur der Daten mit Datentypen
 const userUploadSchema = new mongoose.Schema({
+    uploaderName: { type:String , 
+                    required:true},
     uploaderEmail: { type: String ,
                      required: true ,
                      match:[ /.+\@.+\..+/ ,
