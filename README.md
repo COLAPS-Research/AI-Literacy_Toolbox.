@@ -63,15 +63,13 @@ Development Tools
 ![alt text](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white)
 📂 Project Structure
 
-The project uses a clean, separated structure for frontend and backend concerns.
 
-Generated code
 /ai_toolbox_project/
 │
 ├── 📂 public/                # All static frontend files (HTML, CSS, JS, assets)
 │
 ├── 📂 models/                # Mongoose database schemas
-│   └── dbTools.js
+│   └── 📜 dbTools.js
 │
 ├── 📜 server.js              # The main Node.js/Express backend server
 ├── 📜 logger.js              # Winston logger configuration
@@ -85,7 +83,9 @@ Generated code
 ├── 📦 package-lock.json      # Exact dependency versions for reproducible builds
 │
 ├── 🔒 .env.example          # Example environment variables (rename to .env)
-└── 📄 .dockerignore          # Files to exclude from the Docker build
+└── 📄 .dockerignore          # Files to exclude from the Docker build```
+
+---
 
 ⚙️ Getting Started: Local Development Setup
 
