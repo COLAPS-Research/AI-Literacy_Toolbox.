@@ -232,9 +232,38 @@
 
   // eventListener für den contact-button
   const submit = document.getElementById('submit-button');
-  submit.addEventListener('click' , () => {
-    console.log('test');
-  })
+  submit.addEventListener('click' , async (event) => {
+
+    // prevents html-side from rerender
+    event.preventDefault();
+
+    // get input from user who wants to get in touch
+    const name = document.getElementById('name').value;
+    const emailFrom = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    try {
+      // request send-email-contact from server
+      const response = await fetch('http://localhost:3000/send-email-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'  // send JSON
+        },
+        body: JSON.stringify({ name , emailFrom , message })
+      });
+
+      // get text-answer from the server
+      const result = await response.text();
+
+      // display feedback to the user
+      alter(result);
+
+    } catch (error) {
+      // if error -> give user negative feedback and log error
+      console.error('Fehler beim Senden:', error);
+      alert('Beim Senden ist ein Fehler aufgetreten.');
+    }
+  });
 
   document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {

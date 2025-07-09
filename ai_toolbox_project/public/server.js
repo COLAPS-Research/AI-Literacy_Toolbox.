@@ -137,9 +137,9 @@ const transporter = nodemailer.createTransport({
   debug: true                       //  Zeigt ausführliche Debug-Meldungen in der Konsole
 */
 
-//------------------------------------------------Email Versand Sektion-----------------------------------------//
+//------------------------------------------------Email Versand Section new Submission-----------------------------------------//
 
-app.post('/send-email', (req, res) => {
+app.post('/send-email-submit', (req, res) => {
   const { to } = req.body;
 
   // E-mail an den user -> aufbau
@@ -158,7 +158,7 @@ app.post('/send-email', (req, res) => {
     text: 'A new Toolbox is available for review step!'
   };
 
-    // erste E-Mail an User
+    // first email to email-adress that submitted -> succes feedback
     transporter.sendMail(mailOptionsUser, (errUser, infoUser) => {
       if (errUser) {
         logger.error(`Fehler beim Senden an User: ${errUser.message}`);
@@ -166,18 +166,53 @@ app.post('/send-email', (req, res) => {
       }
       logger.info('E-Mail erfolgreich an User gesendet: ' + infoUser.response);
 
-    // zweite E-Mail an uns selbst
+    // second email to ourselfs to be informed there is a new submission -> information
     transporter.sendMail(mailOptionsSelf, (errSelf, infoSelf) => {
       if (errSelf) {
         logger.error(`Fehler beim Senden an uns selbst: ${errSelf.message}`);
         return res.status(500).send('E-Mail an User gesendet, aber E-Mail an Admin fehlgeschlagen: ' + errSelf.message);
       }
       logger.info('E-Mail erfolgreich an dich selbst gesendet: ' + infoSelf.response);
-      
+
       res.status(200).send('Beide E-Mails wurden erfolgreich gesendet.');
     });
   });
 });
+//--------------------------------------------Email Versand Section Contact----------------------------------------//
+
+app.post('/send-email-contact', async (req, res) => {
+  try {
+    const { name, emailFrom, message } = req.body;
+
+    // server response with an error if something is missing
+    if (!name || !emailFrom || !message) {
+      return res.status(400).send('Bitte alle Felder ausfüllen.');
+    }
+
+    // mail infos to colaps -> structure
+    const mailOptionsColaps = {
+      from: process.env.EMAIL_USER,
+      to: 'colapsresearch@gmail.com',
+      subject: 'Contact Page',
+      text: `
+        Contact by: ${name}\n
+        Contact from Email: ${emailFrom}\n
+        Contact message:\n
+        ${message}
+      `.trim()
+    };
+
+    const info = await transporter.sendMail(mailOptionsColaps);
+    logger.info(`E-Mail erfolgreich gesendet: ${info.response}`);
+    res.status(200).send('E-Mail erfolgreich gesendet.');
+
+  } catch (err) {
+    logger.error(`Fehler beim E-Mail-Versand: ${err.message}`);
+    res.status(500).send('Fehler beim E-Mail-Versand: ' + err.message);
+  }
+});
+
+//--------------------------------------------Server Start Section----------------------------------------//
 
 app.listen(port, () => {
   logger.info(`Server läuft auf http://localhost:${port}`);

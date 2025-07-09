@@ -129,7 +129,7 @@ submitButton.addEventListener("click" , async (event) => {
 
     try {
       // Anfrage an den Server senden – POST an /send-email
-      const response = await fetch('http://localhost:3000/send-email', {
+      const response = await fetch('http://localhost:3000/send-email-submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'  // JSON wird geschickt
