@@ -66,6 +66,7 @@
         <p>Learn about pattern recognition through an interactive game.</p>
         <img class="rating-stars" src="assets/Star_rating_5.0_of_5.png" alt="5 stars" />
         <p class="age-recommendation">Recommended age: 18+</p>
+        <p>Made by : InsertPerson NameHere</p>
       </a>
 
       <a href="https://ai-literacy-bk5q.onrender.com/" target="_blank" class="tool-card tool-link" >
@@ -106,8 +107,10 @@
     });
   }
 
-  //----------------------------------Render HTML from Database Section-----------------------------------------------//
+  //----------------------------------Get Tool Data From Database Section-----------------------------------------------//
   document.addEventListener('DOMContentLoaded' , async () => {
+
+    const container = document.getElementById('toolsContainer');
 
     // html toolbox container mit db inhalt bestücken
      try{
@@ -124,8 +127,7 @@
 
             console.log(data);
 
-            const container = document.getElementById('toolsContainer');
-
+        //----------------------------------------Render Tools Section----------------------------------//
             data.forEach(tool => {
 
               // <a class="tool-card">
@@ -133,6 +135,8 @@
               link.href = tool.fileURL;
               link.target = "_blank";
               link.className = "tool-card tool-link";
+              // id übergeben um rating übernehmen zu können
+              link.dataset.id = tool._id;
 
               // <h3>uploadTitle</h3>
               const title = document.createElement("h3");
@@ -150,114 +154,123 @@
               // <img> rating
               const stars = document.createElement("img");
               // konvertiert die Ausgabe wieder zu einem Float -> default von 0 zu 0.0 weil kein rating vorhanden
-              const starCount = tool.rating.averageRating.toFixed(1);
+              const starCount = tool.rating?.averageRating?.toFixed(1) || "0.0";
               stars.src = `assets/Star_rating_${starCount}_of_5.png`;
               stars.alt = "Rating";
               stars.className = "rating-stars";
 
-              stars.addEventListener("click", function (event) {
+                // click on stars -> create ratingmenu 
+                stars.addEventListener("click", (event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
 
-                // verhindert eventlistener vom Eltern-Element
-                event.stopPropagation(); 
-
-                // stoppt die Weiterleitung durch links
-                event.preventDefault();
-
-                // neuesHTML- Element für das ranking -> steht über allem mit z-index
-                const ratingMenu = document.getElementById("rating-menu");
-
-                // auswahl des ratings durch click
-                ratingMenu.addEventListener('click' , (event) => {
-                  // alle Bilder neutral darstellen -> ohne Hintegrunffarbe
-                  if (event.target.tagName === 'IMG'){
-                    // umwandeln in Array -> leichter zu bearbeiten
-                    [...ratingMenu.querySelectorAll('img')].forEach(img => {
-                      img.style.backgroundColor = '';
-                    })
-                    // ausgewähltes Bild hervorheben und focus darauf setzen
-                    event.target.style.backgroundColor = 'green';
-                    event.target.focus();
-                  }
-                });
-
-                // das letzte Bild im Fokus speichern -> sonst Button im Fokus
-                // focusin -> nimmt fokuswechsel wahr und ändert das letzte bild im fokus
-                let lastActiveIMG = null;
-                ratingMenu.addEventListener("focusin", (e) => {
-                  if (e.target.tagName === "IMG") {
-                    lastActiveIMG = e.target;
-                  }
-                });
-
-                document.addEventListener('click', (event) =>  {
-                
-                  // prüfne ob das rating Menü aktuell offen ist
-                  const isOpen = ratingMenu.style.display !== 'none' && ratingMenu.style.display !== '';
                   
-                  // wenn offen und Klick außerhalb -> schließen
-                  if (isOpen && !ratingMenu.contains(event.target)) {
-                    ratingMenu.style.display = 'none';
-                  }
-                });
-                
-                // zentral in der Mitte vom Dokument -> außerhalb von DokumentesFluss
-                ratingMenu.style.left = "50%";
-                ratingMenu.style.top = "50%";
-                ratingMenu.style.transform = "translate(-50%, -50%)";
-                ratingMenu.style.position = "fixed";
-                ratingMenu.style.display = "flex";
-                ratingMenu.style.border = "none";
-                ratingMenu.style.borderRadius = '10px';
-                ratingMenu.style.flexDirection = 'column';
-                ratingMenu.style.maxHeight = '400px';
-                ratingMenu.style.maxWidth = '333px';
-                ratingMenu.style.overflowY = 'auto';
-                ratingMenu.style.overflowX = 'hidden';
-                ratingMenu.innerHTML = '';   // leeren falls merhfach geklickt wird
+                  //----------------------------------------Rating Menu Build Section-----------------------------------------//
 
-                // jede mögliche Bewertung wird angezeigt
-                for( i=0 ; i <=10 ; i ++){
+                  // options to display the rating-menu
+                  ratingMenu.style.left = "50%";
+                  ratingMenu.style.top = "50%";
+                  ratingMenu.style.transform = "translate(-50%, -50%)";
+                  ratingMenu.style.position = "fixed";
+                  ratingMenu.style.display = "flex";
+                  ratingMenu.style.border = "none";
+                  ratingMenu.style.borderRadius = '10px';
+                  ratingMenu.style.flexDirection = 'column';
+                  ratingMenu.style.maxHeight = '400px';
+                  ratingMenu.style.maxWidth = '333px';
+                  ratingMenu.style.overflowY = 'auto';
+                  ratingMenu.style.overflowX = 'hidden';
 
-                  const ratingValue = (i*0.5).toFixed(1);
+                  ratingMenu.innerHTML = '';  // empty menu
 
-                  // neues img-Element für jede Bewertung
+                  // add every possible rating option
+                  for(let i = 0; i <= 10; i++) {
+                    const ratingValue = (i * 0.5).toFixed(1);
                     const ratingImg = document.createElement("img");
-                    ratingImg.src = `assets/Star_rating_${ratingValue}_of_5.png`; 
-                    ratingImg.alt = `Bewertung ${ratingValue}`; 
+                    ratingImg.src = `assets/Star_rating_${ratingValue}_of_5.png`;
+                    ratingImg.alt = `Bewertung ${ratingValue}`;
                     ratingImg.style.flex = '1';
                     ratingImg.style.width = '100%';
                     ratingImg.style.objectFit = 'cover';
-                    ratingImg.style.cursor = "pointer"; 
-                    ratingImg.style.margin = "2px"; 
+                    ratingImg.style.cursor = "pointer";
+                    ratingImg.style.margin = "2px";
                     ratingImg.tabIndex = '0';
-                    // dataset.wert -> um rating-value besser auslesen zu können
                     ratingImg.dataset.wert = ratingValue;
-
-                     // Bild der Bewertung anfügen
                     ratingMenu.appendChild(ratingImg);
-                }
-                // hier noch Confirm-Button zum bestättigen der Bewertung einfügen -> mit evenlistener
+                  }
+
+                // deploy-rating button
                 const ratingButton = document.createElement("button");
                 ratingButton.className = "rating-Button";
                 ratingButton.innerText = "Deploy rating";
-                // Button darf nicht fokussierbar sein -> sonst img-Element nciht mehr im Fokus
-                ratingButton.tabIndex = '-1';
-                // wähle das aktive Element und nehme die sternewertung aus dem dataset
-                ratingButton.addEventListener('click' , () => {
-                  if(lastActiveIMG){
-                    console.log(lastActiveIMG.dataset.wert);
-                  } else {
-                    console.log('Rating could not be found.');
-                  }
-                });
-
                 ratingMenu.appendChild(ratingButton);
+
+                //---------------------------Add New Rating Section-------------------------------//
+                // safe new rating in database and update it 
+                ratingButton.addEventListener('click' , async () => {
+                  if(!lastActiveIMG){
+                    alert('Kein Bild wurde bisher ausgewählt.');
+                    return;
+                  }
+                  try {
+                    const response = await fetch('http://localhost:3000/rate-toolbox', {
+                      method: 'PATCH',
+                      headers: {
+                          'Content-Type': 'application/json'
+                      },
+                          body: JSON.stringify({
+                            toolboxId: link.dataset.id,
+                            rating: lastActiveIMG.dataset.wert
+                        })
+                    });
+
+                    // throw an error if the response from the server is bad
+                      if (!response.ok) {
+                        const errorText = await response.text();
+                        throw new Error(`Server antwortet mit Status ${response.status}: ${errorText}`);
+                      }
+
+                      const text = await response.text();
+                      alert('Rating deployed!');
+                  } catch (error) {
+                      console.error('Fehler beim Senden:', error);
+                      alert('Fehler beim Senden des ratings.');
+                  }
               });
+
+              });  // stars.eventlistener end
+
+                // define how the rating-menu behaves for events
+                const ratingMenu = document.getElementById("rating-menu");
+                  let lastActiveIMG = null;
+
+                  // show which rating-option is in focus and safe last one for potential deploy of rating
+                  ratingMenu.addEventListener('click', (event) => {
+                    if(event.target.tagName === 'IMG') {
+                      [...ratingMenu.querySelectorAll('img')].forEach(img => img.style.backgroundColor = '');
+                      event.target.style.backgroundColor = 'green';
+                      event.target.focus();
+                      lastActiveIMG = event.target;
+                    }
+                  });
+
+                  // if user clicks outside of the rating-menu -> close it
+                  document.addEventListener('click', (event) => {
+                    const isOpen = ratingMenu.style.display !== 'none' && ratingMenu.style.display !== '';
+                    if(isOpen && !ratingMenu.contains(event.target)) {
+                      ratingMenu.style.display = 'none';
+                      lastActiveIMG = null;
+                    }
+                  });                 
 
               // <p>ageRecommandation</p>
               const ageReco = document.createElement("p");
               ageReco.className = "age-recommendation";
               ageReco.textContent = "Recommended age: " + tool.ageRecommendation;
+
+              // <p>Made by : </p>
+              const madeBy = document.createElement("p");
+              madeBy.textContent = "Made by " + tool.uploaderName;
 
               // alles an das äußere a-Element anfügen
               // besser mit appendChild arbeiten als mit concat innerHTML -> leichter wartbarer Code 
@@ -266,18 +279,22 @@
               link.appendChild(desc);
               link.appendChild(stars);
               link.appendChild(ageReco);
+              link.appendChild(madeBy);
 
               // a-Element an den Container anfügen
               container.appendChild(link);
-            });
+            
+          }); // for each tool loop ende
+
+    }catch (error){
+      console.error('Ein Fehler bei der Datenübertragung ist aufgetreten.' , error);
+  }}); // DOMContentLoad end
 
 
-      } catch (error){
-            console.error('Ein Fehler bei der Datenübertragung ist aufgetreten.' , error);
-      }
+  //--------------------------------------Sorting Section--------------------------------------------------//
 
-      // toolbox sorting
-      /*
+     // toolbox sorting
+        const container = document.getElementById('toolsContainer');
         const tools = Array.from(container.querySelectorAll('.tool-card, .tool-link'));
 
         tools.sort((a, b) => {
@@ -301,8 +318,8 @@
                 link.classList.remove("active");
               }
           }); 
-      */
-  });
+            
+
   
 </script>
 

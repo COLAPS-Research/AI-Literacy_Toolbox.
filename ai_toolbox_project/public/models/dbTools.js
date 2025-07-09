@@ -6,17 +6,9 @@ const mongoose = require('mongoose');
   totalRatings: {
     type: [Number],
     default: [],
-    validate: {
-      validator: function(arr) {
-        // testet ob jeder Wert im Array auch Teil des vordefinierten Arrays ist
-        return arr.every(val => [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0].includes(val));
-      },
-      // schlägt die Validierung fehl wird automatisch die message ausgegeben
-      message: "Rating Typ ist nicht benutzbar: {VALUE}"
-    }
-  },
-  averageRating: { type: Number, default: 0.0 },
-  ratingCount: { type: Number, default: 0 }
+    },
+    averageRating: { type: Number, default: 0.0 },
+    ratingCount: { type: Number, default: 0 }
 });
 
 // Definiere das Schema -> definiert die genaue Struktur der Daten mit Datentypen

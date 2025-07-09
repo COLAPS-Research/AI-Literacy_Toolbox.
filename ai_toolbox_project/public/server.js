@@ -41,6 +41,12 @@ app.get('/', (req, res) => {
   res.send('Server ist live!');
 });
 
+//rounding function for the star rating
+function roundToStars(wert){
+  const starRounded = Math.round(wert*2) /2;
+  return starRounded;
+}
+
 //----------------------------------------------Database Section---------------------------------------------//
 
 // der Server sendet Daten an den Clienten mit der GET Anfrage
@@ -91,7 +97,7 @@ app.post('/add-entry', async (req, res) => {
     }
 });
 
-//----------------------------------------------E-Mail Section---------------------------------------------//
+//----------------------------------------------E-Mail Transporter Section---------------------------------------------//
 
 // .env-check -> sind alle benötgten Informationen auch vorhanden zum Email Versandt
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
@@ -158,7 +164,6 @@ app.post('/send-email', (req, res) => {
         logger.error(`Fehler beim Senden an User: ${errUser.message}`);
         return res.status(500).send('E-Mail an Nutzer konnte nicht gesendet werden: ' + errUser.message);
       }
-
       logger.info('E-Mail erfolgreich an User gesendet: ' + infoUser.response);
 
     // zweite E-Mail an uns selbst
@@ -167,8 +172,8 @@ app.post('/send-email', (req, res) => {
         logger.error(`Fehler beim Senden an uns selbst: ${errSelf.message}`);
         return res.status(500).send('E-Mail an User gesendet, aber E-Mail an Admin fehlgeschlagen: ' + errSelf.message);
       }
-
       logger.info('E-Mail erfolgreich an dich selbst gesendet: ' + infoSelf.response);
+      
       res.status(200).send('Beide E-Mails wurden erfolgreich gesendet.');
     });
   });
@@ -176,5 +181,47 @@ app.post('/send-email', (req, res) => {
 
 app.listen(port, () => {
   logger.info(`Server läuft auf http://localhost:${port}`);
+});
+
+//--------------------------------------------Rating Toolbox Section----------------------------------------//
+
+app.patch('/rate-toolbox', async (req, res) => {
+  const { toolboxId, rating } = req.body;
+
+  // Json returns String -> parse to number!
+  const ratingNumber = Number(rating);
+
+  try {
+    const toolbox = await Tool.findById(toolboxId);
+    if (!toolbox){
+      return res.status(404).send('Toolbox nicht gefunden');
+    } 
+
+    // add the new rating to the array
+    toolbox.rating.totalRatings.push(ratingNumber); 
+
+    // get number of total ratings -> to compute avarage
+    toolbox.rating.ratingCount = toolbox.rating.totalRatings.length;
+
+    // compute the sum of all ratings in the array
+    const sum = toolbox.rating.totalRatings.reduce((acc, cur) => acc + cur, 0);
+
+    // compute avarage star rating -> not rounded
+    const wildAvarage = sum / toolbox.rating.ratingCount;
+
+    // round to fit into the star rating
+    const starRounded = roundToStars(wildAvarage);
+
+    // update avarage rating
+    toolbox.rating.averageRating = starRounded;
+
+    await toolbox.save();
+    logger.info('Bewertung erfolgreich abgegeben.');
+
+    res.send({ success: true, toolbox });
+  } catch (err) {
+    res.status(500).send('Fehler beim Speichern der Bewertung');
+    logger.error(`Fehler beim Speichern der Bewertung : ${err.message}`);
+  }
 });
 
