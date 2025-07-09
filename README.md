@@ -1,169 +1,217 @@
-# AI Literacy Project - Database Documentation
+Of course! After all that hard work, your project deserves a fantastic README file. A great README not only explains what the project does but also makes it easy for others to use, contribute to, and appreciate your work.
 
-## Database Overview
-This project uses MongoDB as its database system, with Mongoose as the ODM (Object Data Modeling) library. The database is designed to store user uploads and their associated metadata for the AI literacy platform.
+Here is a comprehensive, beautifully formatted README.md file tailored specifically for your AI Literacy Toolbox. Just copy the text below and save it as README.md in the root of your project folder.
 
-## Database Connection
-- **Database URL**: `mongodb://localhost:27017/myTips`
-- **Connection Options**:
-  - `useNewUrlParser: true` - For better URL parsing
-  - `useUnifiedTopology: true` - For stable topology engine
+AI Literacy Toolbox 🤖
 
-## Database Schema
+![alt text](https://img.shields.io/badge/License-MIT-blue.svg)
+![alt text](https://img.shields.io/badge/build-passing-brightgreen.svg)
+![alt text](https://img.shields.io/badge/Docker-Powered-blue?logo=docker)
+![alt text](https://img.shields.io/badge/Node.js-Backend-green?logo=nodedotjs)
+![alt text](https://img.shields.io/badge/Nginx-Frontend-darkgreen?logo=nginx)
 
-### User Uploads Schema
-The main schema for storing user uploads (`userUploadSchema`):
+The AI Literacy Toolbox is a comprehensive web platform designed to empower students, educators, and enthusiasts with the knowledge and skills to understand, evaluate, and effectively use Artificial Intelligence. Developed as a project at the University of Duisburg-Essen, this application combines educational content with interactive tools in a fully containerized, easy-to-deploy package.
 
-```javascript
-{
-    author: {
-        type: String,
-        required: true
-    },
-    uploaderEmail: {
-        type: String,
-        required: true,
-        match: [/.+\@.+\..+/, "Please enter a valid E-Mail adress"]
-    },
-    uploadType: {
-        type: String,
-        required: true
-    },
-    uploadDate: {
-        type: Date,
-        default: new Date()
-    },
-    ageRecommendation: {
-        type: Number,
-        required: true
-    },
-    uploadTitle: {
-        type: String,
-        required: true
-    },
-    uploadDescription: {
-        type: String,
-        required: true
-    },
-    fileURL: {
-        type: String,
-        required: true
-    },
-    thumbnailURL: {
-        type: String,
-        required: true
-    },
-    uploadTags: {
-        type: [String],
-        default: []
-    },
-    reviewStatus: {
-        type: String,
-        default: "pending"
-    },
-    reviewNotes: {
-        type: String
-    },
-    reviewedByAdmin: {
-        type: String,
-        default: null
-    },
-    rating: {
-        type: ratingSchema
-    }
-}
-```
+Our mission is to close the AI knowledge gap by providing a collaborative platform where the community can learn and contribute.
 
-### Rating Sub-Schema
-The schema for rating information (`ratingSchema`):
+✨ Core Features
 
-```javascript
-{
-    totalRatings: {
-        type: [Number],
-        default: [],
-        validate: {
-            validator: function(arr) {
-                return arr.every(val => 
-                    [1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0].includes(val)
-                )
-            },
-            message: "Rating Typ ist nicht benutzbar: {VALUE}"
-        }
-    },
-    averageRating: {
-        type: Number,
-        default: 0.0
-    },
-    ratingCount: {
-        type: Number,
-        default: 0
-    }
-}
-```
+📚 Educational Content: Interactive modules and resources explaining key AI concepts, ethics, and applications.
 
-## API Endpoints
+🛠️ Interactive Tools: A curated collection of games and tools designed to teach AI principles like pattern recognition and machine learning in a hands-on way.
 
-### 1. Server Health Check
-- **Endpoint**: `GET /`
-- **Description**: Basic server health check
-- **Response**: Text message confirming server is live
+🚀 Community Submissions: A simple and secure form for users to submit their own AI literacy tools, helping the platform grow.
 
-### 2. Get All Uploads
-- **Endpoint**: `GET /get-data`
-- **Description**: Retrieves all user uploads from the database
-- **Response**: JSON array of all upload documents
-- **Error Response**: Status 500 with error message
+📫 Email Notifications: An automated email system to confirm successful tool submissions.
 
-### 3. Add New Upload
-- **Endpoint**: `POST /add-entry`
-- **Description**: Creates a new upload entry in the database
-- **Request Body**: JSON object containing upload details
-  ```javascript
-  {
-    author: String,
-    uploaderEmail: String,
-    uploadType: String,
-    uploadDate: Date,
-    ageRecommendation: Number,
-    uploadTitle: String,
-    uploadDescription: String,
-    fileURL: String,
-    thumbnailURL: String,
-    uploadTags: [String],
-    reviewStatus: String,
-    reviewNotes: String,
-    reviewedByAdmin: String,
-    rating: Object
-  }
-  ```
-- **Success Response**: Status 200 with success message
-- **Error Response**: Status 500 with error message
+🐳 Fully Containerized: The entire stack (Frontend, Backend, Database) is managed with Docker and Docker Compose for one-command setup and deployment.
 
-## Error Handling
-The application implements try-catch blocks for all database operations with:
-- Proper error logging
-- User-friendly error messages
-- Appropriate HTTP status codes
-- Automatic connection closure
+🛡️ Secure API: A backend built with Node.js and Express, designed to run securely under a specific URL path for multi-app environments.
 
-## Security Features
-1. Email validation using regex pattern
-2. CORS middleware enabled for development
-3. Input validation through Mongoose schema
-4. Rating value validation through custom validator
+🔍 Dynamic Search: Client-side search functionality to quickly find content across the site.
 
-## Development Setup
-1. Ensure MongoDB is installed and running on port 27017
-2. Install dependencies: `npm install`
-3. Required packages:
-   - mongoose
-   - express
-   - cors
+🚀 Live Demo
 
-## Notes for Developers
-- The database uses Mongoose's built-in validation
-- All dates are stored in ISO format
-- Rating values are restricted to predefined increments (1.0-5.0 in 0.5 steps)
-- Review status defaults to "pending"
-- The server runs on port 3000 by default 
+You can access a live version of the project deployed on our university's server:
+
+https://demo.colaps.team/ai-literacy-toolbox/
+
+🛠️ Technology Stack
+
+This project is built with a modern, reliable stack:
+
+Component	Technology
+Frontend	
+![alt text](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white)
+![alt text](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)
+![alt text](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black)
+
+Backend	
+![alt text](https://img.shields.io/badge/-Node.js-339933?logo=nodedotjs&logoColor=white)
+![alt text](https://img.shields.io/badge/-Express.js-000000?logo=express&logoColor=white)
+
+Database	
+![alt text](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white)
+
+Deployment	
+![alt text](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)
+![alt text](https://img.shields.io/badge/-Nginx-269539?logo=nginx&logoColor=white)
+
+Development Tools	
+![alt text](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white)
+![alt text](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=black)
+![alt text](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white)
+📂 Project Structure
+
+The project uses a clean, separated structure for frontend and backend concerns.
+
+Generated code
+/ai_toolbox_project/
+│
+├── 📂 public/                # All static frontend files (HTML, CSS, JS, assets)
+│
+├── 📂 models/                # Mongoose database schemas
+│   └── dbTools.js
+│
+├── 📜 server.js              # The main Node.js/Express backend server
+├── 📜 logger.js              # Winston logger configuration
+│
+├── 🐳 Dockerfile.backend     # Docker instructions for the backend
+├── 🐳 Dockerfile.frontend    # Docker instructions for the frontend
+├── 📜 nginx.conf             # Nginx configuration for serving frontend & proxying API
+├── 🐳 docker-compose.yml     # Orchestrates all services
+│
+├── 📦 package.json           # Project dependencies and scripts
+├── 📦 package-lock.json      # Exact dependency versions for reproducible builds
+│
+├── 🔒 .env.example          # Example environment variables (rename to .env)
+└── 📄 .dockerignore          # Files to exclude from the Docker build
+
+⚙️ Getting Started: Local Development Setup
+
+Follow these steps to get the entire application running on your local machine.
+
+Prerequisites
+
+Git
+
+Docker Desktop
+
+Installation Steps
+
+Clone the repository:
+
+Generated bash
+git clone https://github.com/ksohailwa/AI-literacy.git
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Navigate to the project directory:
+
+Generated bash
+cd "AI-literacy/AI-Literacy (css upgrade)/ai_toolbox_project"
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Create the environment file (.env):
+Create a new file named .env in the project root. Copy the contents of .env.example into it and fill in your actual credentials.
+
+<details>
+<summary>Click to see `.env` template</summary>
+
+Generated env
+# --- Email Server (SMTP) Configuration ---
+# WARNING: Use a Google App Password, not your main account password.
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_16_character_app_password
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+
+# --- Database Configuration ---
+# Use the Docker service name 'mongo', not 'localhost'.
+MONGO_URI=mongodb://mongo:27017/AItoolboxes
+
+# --- Application Server Port ---
+# This is the internal port for the Node.js app.
+PORT=8080
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Env
+IGNORE_WHEN_COPYING_END
+</details>
+
+
+Build and Run the Application:
+This single command will build the Docker images and start all services (frontend, backend, and database).
+
+Generated bash
+docker-compose up --build
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+
+Access the Application:
+Once the containers are running, you can access the services:
+
+Frontend Website: http://localhost:80
+
+Backend API Status: http://localhost:8080/ai-literacy-toolbox/status
+
+▶️ Running the Application
+
+To start all services: docker-compose up
+
+To stop all services: Press Ctrl + C in the terminal, then run docker-compose down.
+
+🤝 How to Contribute
+
+We welcome contributions! Please follow these steps:
+
+Fork the repository.
+
+Create a new branch (git checkout -b feature/your-awesome-feature).
+
+Make your changes.
+
+Commit your changes (git commit -m 'Add some awesome feature').
+
+Push to the branch (git push origin feature/your-awesome-feature).
+
+Open a Pull Request.
+
+👥 The Team
+
+This project was brought to life by a dedicated team of students:
+
+Khan Sohail
+
+Kevin Flotow
+
+Mohammadreza Zahedizadehgan
+
+Rabia Karabulut
+
+Tharani Uruthirakumar
+
+Gousiha Rammohan
+
+Supervised by:
+
+Prof. Dr. Irene-Angelica Chounta
+
+📜 License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
