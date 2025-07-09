@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
   res.send('Server ist live!');
 });
 
-//rounding function for the star rating
+// rounding function for the star rating
 function roundToStars(wert){
   const starRounded = Math.round(wert*2) /2;
   return starRounded;
@@ -51,13 +51,13 @@ function roundToStars(wert){
 
 //----------------------------------------------Database Section---------------------------------------------//
 
-// der Server sendet Daten an den Clienten mit der GET Anfrage
+// get all tools from the databse
 app.get('/get-data' , async (req , res) => {
 
     try{
-        // mit find() werden alle Dokumente aus der Collection abgerufen -> gibt Array aus Objekten(Dokumenten) zurück
+        // find() -> return all document out of the collection -> as an array of objects
         const data = await Tool.find();
-        // sendet Daten an den Clienten und beendet die Anfrage
+        // send data to client 
         res.json(data);
         logger.info('Get-Anfrage auf Datenbank erfolgreich.');
     } catch (error){
@@ -68,7 +68,7 @@ app.get('/get-data' , async (req , res) => {
     }
 });
 
-// der Server erhält Daten vom Clienten mit der POST Anfrage
+// server gets data from the client -> adds a new entry to the database
 app.post('/add-entry', async (req, res) => {
     const {uploaderName , uploaderEmail, uploadType , uploadDate , ageRecommendation , uploadTitle,
             uploadDescription , fileURL , thumbnailURL , uploadTags } = req.body;
@@ -88,7 +88,7 @@ app.post('/add-entry', async (req, res) => {
             uploadTags: uploadTags ,
         });
 
-        // neuen Db Eintrag abspeichern
+        // save the new entry in the database
         await newEntry.save();
 
         logger.info('Datenbankeintrag erfolgreich eingefügt.')
@@ -101,7 +101,7 @@ app.post('/add-entry', async (req, res) => {
 
 //----------------------------------------------E-Mail Transporter Section---------------------------------------------//
 
-// .env-check -> sind alle benötgten Informationen auch vorhanden zum Email Versandt
+// .env-check -> are all infos there we need to send an email
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
   logger.warn('Warnung: .env-Konfiguration scheint unvollständig zu sein!');
 }
@@ -191,22 +191,22 @@ app.post('/send-email-contact', async (req, res) => {
       return res.status(400).send('Bitte alle Felder ausfüllen.');
     }
 
-    // mail infos to colaps -> structure
+    // mail infos to colaps -> structure     
     const mailOptionsColaps = {
       from: process.env.EMAIL_USER,
       to: 'colapsresearch@gmail.com',
       subject: 'Contact Page',
       text: `
-        Contact by: ${name}\n
-        Contact from Email: ${emailFrom}\n
-        Contact message:\n
+        Contact by: ${name}
+        Contact from Email: ${emailFrom}
+        Contact message:
         ${message}
       `.trim()
     };
 
     const info = await transporter.sendMail(mailOptionsColaps);
     logger.info(`E-Mail erfolgreich gesendet: ${info.response}`);
-    res.status(200).send('E-Mail erfolgreich gesendet.');
+    res.status(200).send('E-Mail erfolgreich an colaps gesendet.');
 
   } catch (err) {
     logger.error(`Fehler beim E-Mail-Versand: ${err.message}`);
