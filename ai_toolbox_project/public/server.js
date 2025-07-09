@@ -106,37 +106,37 @@ if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
   logger.warn('Warnung: .env-Konfiguration scheint unvollständig zu sein!');
 }
 
-// Email-Transporter konfigurieren –> sagt aus über welchen Maildienst versendet wird
-// env-Datei erstellen und in '.gitignore' schreiben um sensible Daten zu schützen
-// process.env.blablabla -> gobales Objekt welches die privaten Werte aus der .env Datei ausliest
+// configure email transporter -> from where do we send 
+// read sensible data out of .env to secure the data
+// process.env.blablabla -> global object which reads the value out of .env 
 const transporter = nodemailer.createTransport({
 
-  // === Pflichtfelder ===
-  host: process.env.SMTP_HOST,       //  SMTP-Server (z. B. smtp.office365.com oder smtp.gmail.com)
+  // define mailservice and 'login' from sender-email
+  host: process.env.SMTP_HOST,       //  SMTP-Server 
   port: process.env.SMTP_PORT,       //  Portnummer: 587 für STARTTLS, 465 für SSL/TLS, 25 ist oft blockiert
   secure: false,                     //  true = SSL/TLS (Port 465), false = STARTTLS (587)
 
-  requireTLS: true,                  //  TLS (Verschlüsselung) erzwingen –> sicherer und meist erforderlich
+  requireTLS: true,                  //  force TLS-Encryption -> most of the time a must have
 
   auth: {
-    user: process.env.EMAIL_USER,     //  Absenderadresse
-    pass: process.env.EMAIL_PASS      //  App-spezifisches Passwort (nicht das normale email Passwort -> geht aber auch)
+    user: process.env.EMAIL_USER,     //  from what email do we send 
+    pass: process.env.EMAIL_PASS      //  App-specific password -> not the normal passwort (but would also work)
   }
 });
 /*
-  // Optionale Felder -> vielleicht später wenn das projekt wächst
+  // optional fields -> for when the projects grows bigger
 
-  name: 'mein-client.local',         //  (Optional) Eigener Hostname im SMTP-Handshake -> nicht in produktion
+  name: 'mein-client.local',         //  (optional) own hostname and handshake -> not in production
   tls: {
-    rejectUnauthorized: false        //  Für Testserver mit selbstsignierten Zertifikaten –> nicht in produktion
+    rejectUnauthorized: false        //  for testing , own signed significate –> not in production
   },
-  pool: true,                       // (Optional) Aktiviert einen Verbindungspool für mehrere E-Mails
-  maxConnections: 5,                //  (Optional) Max. gleichzeitige SMTP-Verbindungen (nur bei pool: true)
-  maxMessages: 100,                 //  (Optional) Max. Anzahl E-Mails pro Verbindung
-  rateDelta: 1000,                  //  (Optional) Minimalzeit (in ms) zwischen zwei Nachrichten
-  rateLimit: 5,                     //  (Optional) Max. Nachrichten pro Sekunde (gut gegen Ratenbegrenzung)
-  logger: true,                     //  Aktiviert Logging für Transport-Aktivitäten (Debug-Zwecke)
-  debug: true                       //  Zeigt ausführliche Debug-Meldungen in der Konsole
+  pool: true,                       //  (Optional) activates connectionPool for more Emails
+  maxConnections: 5,                //  (Optional) Max. simult. connections (only if -> pool: true)
+  maxMessages: 100,                 //  (Optional) Max. number of emails per connection
+  rateDelta: 1000,                  //  (Optional) Minimum time in ms between 2 emails
+  rateLimit: 5,                     //  (Optional) Max. emails per second -> good to reduce 
+  logger: true,                     //  activates logger fpr transport purposes -> debug 
+  debug: true                       //  shows debug messages in the console
 */
 
 //------------------------------------------------Email Section new Submission-----------------------------------------//
