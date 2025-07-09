@@ -5,20 +5,22 @@ const cors = require('cors');
 
 // import the predefined dbSchema
 const Tool = require('./models/dbTools.js');
+
+// import dotenv to create local variables
 const dotenv = require('dotenv');
 
-// um Daten aus der .env-Datei zu erhalten
+// to receive data out of the .env file
 dotenv.config();
 
 // nodemailer -> automatic emailGenerator
 const nodemailer = require('nodemailer');
 
-// Nur Mongoose verwenden
+// use mongoose for better control of the database
 const mongoose = require('mongoose');
 
 const app = express();
 
-// logger importieren
+// import logger -> log server responses and potential errors
 const logger = require('./logger.js');
 
 // database conection aus der .env file holen -> security
@@ -31,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const port = process.env.PORT;
 
-// CORS-Middleware für alle Domains (Entwicklung)
+// CORS-Middleware for all domains
 app.use(cors());
 // JSON parsing middleware
 app.use(express.json());
@@ -137,12 +139,12 @@ const transporter = nodemailer.createTransport({
   debug: true                       //  Zeigt ausführliche Debug-Meldungen in der Konsole
 */
 
-//------------------------------------------------Email Versand Section new Submission-----------------------------------------//
+//------------------------------------------------Email Section new Submission-----------------------------------------//
 
 app.post('/send-email-submit', (req, res) => {
   const { to } = req.body;
 
-  // E-mail an den user -> aufbau
+  // email structure -> to user
   const mailOptionsUser = {
     from: process.env.EMAIL_USER,
     to: to,
@@ -150,7 +152,7 @@ app.post('/send-email-submit', (req, res) => {
     text: 'Thank you for submitting your project! We appreciate your contribution. Our team will review it soon.\n\nBest regards,\nThe Team'
   };
 
-  // E-mail an uns selbst -> aufbau
+  // email structure -> to ourselfs
   const mailOptionsSelf = {
     from: process.env.EMAIL_USER,
     to: process.env.EMAIL_USER,
@@ -178,7 +180,7 @@ app.post('/send-email-submit', (req, res) => {
     });
   });
 });
-//--------------------------------------------Email Versand Section Contact----------------------------------------//
+//--------------------------------------------Email Section Contact----------------------------------------//
 
 app.post('/send-email-contact', async (req, res) => {
   try {
