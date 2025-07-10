@@ -194,7 +194,7 @@ app.post('/send-email-contact', async (req, res) => {
     // mail infos to colaps -> structure     
     const mailOptionsColaps = {
       from: process.env.EMAIL_USER,
-      to: 'colapsresearch@gmail.com',
+      to: EMAIL_COLAPS ,
       subject: 'Contact Page',
       text: `
         Contact by: ${name}
