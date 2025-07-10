@@ -60,23 +60,6 @@
   <div class="tools-section">
     <div class="tool-row" id="toolsContainer">
 
-      <a href="mystery.html" class="tool-card tool-link" >
-        <h3>Mystery Cat</h3>
-        <img src="assets/MurderMystery.png" alt="Mystery Cat" />
-        <p>Learn about pattern recognition through an interactive game.</p>
-        <img class="rating-stars" src="assets/Star_rating_5.0_of_5.png" alt="5 stars" />
-        <p class="age-recommendation">Recommended age: 18+</p>
-        <p>Made by : InsertPerson NameHere</p>
-      </a>
-
-      <a href="https://ai-literacy-bk5q.onrender.com/" target="_blank" class="tool-card tool-link" >
-        <h3>Quizzer AI</h3>
-        <img src="assets/Quiz.png" alt="Quizzer AI" />
-        <p>Test your knowledge about AI with our quiz.</p>
-        <img class="rating-stars" src="assets/Star_rating_4.0_of_5.png" alt="4 stars" />
-        <p class="age-recommendation">Recommended age: 13–17</p>
-      </a>
-
     </div>
   </div>
 
@@ -270,7 +253,7 @@
 
               // <p>Made by : </p>
               const madeBy = document.createElement("p");
-              madeBy.textContent = "Made by " + tool.uploaderName;
+              madeBy.textContent = "Made by : " + tool.uploaderName;
 
               // alles an das äußere a-Element anfügen
               // besser mit appendChild arbeiten als mit concat innerHTML -> leichter wartbarer Code 
@@ -330,7 +313,7 @@
   <div id="rating-menu" style="position: absolute;
                               display: none;
                               z-index: 1000;
-                              background: white;
+                              background: rgb(214, 180, 11);
                               border: 1px solid #ccc;
                               padding: 5px;
                               box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
