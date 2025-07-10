@@ -1,50 +1,47 @@
-Of course. This is an excellent request and a critical step in creating a professional, maintainable project. A README.md is for users and a quick overview; developer documentation is for the next person who has to work on your code—which might even be you in six months!
 
-This guide is designed to be saved as DEVELOPER_GUIDE.md in your project's root directory or used as the main page for your project's Wiki on GitHub. It explains the "how" and "why" behind your architectural decisions.
+# Developer Documentation: AI Literacy Toolbox
 
-Developer Documentation: AI Literacy Toolbox
-1. Introduction
+## 1. Introduction
 
-This document provides a comprehensive technical overview of the AI Literacy Toolbox project. It is intended for developers who need to set up the project locally, understand its architecture, extend its features, or perform maintenance. For a general overview and user-facing information, please see the README.md file.
+This document provides a comprehensive technical overview of the AI Literacy Toolbox project. It is intended for developers who need to set up the project locally, understand its architecture, extend its features, or perform maintenance. For a general overview and user-facing information, please see the `README.md` file.
 
-2. Architecture Overview
+---
+
+## 2. Architecture Overview
 
 This project uses a modern, multi-container architecture orchestrated by Docker Compose. This design separates concerns, improves security, and enhances performance by letting each component do what it does best.
 
 The request lifecycle is as follows:
 
-A user's browser sends a request to the server (e.g., https://demo.colaps.team/ai-literacy-toolbox/).
+1.  A user's browser sends a request to the server (e.g., `https://demo.colaps.team/ai-literacy-toolbox/`).
+2.  The main server's reverse proxy forwards the request to our **`frontend` (Nginx)** container.
+3.  The **`frontend`** container immediately serves any static files (HTML, CSS, JS, images).
+4.  If the browser makes an API call (e.g., to `/api/add-entry`), the **`frontend`** container acts as a reverse proxy and forwards this specific request to our **`backend` (Node.js)** container.
+5.  The **`backend`** container processes the API request, interacts with the **`mongo` (Database)** container, and returns a JSON response.
 
-The main server's reverse proxy forwards the request to our frontend (Nginx) container.
 
-The frontend container immediately serves any static files (HTML, CSS, JS, images).
-
-If the browser makes an API call (e.g., to /api/add-entry), the frontend container acts as a reverse proxy and forwards this specific request to our backend (Node.js) container.
-
-The backend container processes the API request, interacts with the mongo (Database) container, and returns a JSON response.
++----------------+ +---------------------------+ +--------------------------+ +----------------------+
+| User's Browser | ---> | Frontend (Nginx) | ---> | Backend (Node.js) | ---> | Database (Mongo) |
+| | | (Serves HTML, CSS, JS) | | (Handles API Logic) | | (Stores Data) |
+| | | (Proxies API calls) | | | | |
++----------------+ +---------------------------+ +--------------------------+ +----------------------+
 
 Generated code
-+----------------+      +---------------------------+      +--------------------------+      +----------------------+
-| User's Browser | ---> |   Frontend (Nginx)        | ---> |   Backend (Node.js)      | ---> |   Database (Mongo)   |
-|                |      |   (Serves HTML, CSS, JS)  |      |   (Handles API Logic)    |      |   (Stores Data)      |
-|                |      |   (Proxies API calls)     |      |                          |      |                      |
-+----------------+      +---------------------------+      +--------------------------+      +----------------------+
-
-
 This architecture is highly scalable and efficient, as the high-performance Nginx server handles all static asset delivery, freeing up the Node.js process to focus solely on application logic.
 
-3. Local Development Setup
+---
 
-For a step-by-step guide, please see the "Getting Started" section in the README.md. The key command to remember is:
+## 3. Local Development Setup
 
-Generated bash
+For a step-by-step guide, please see the "Getting Started" section in the `README.md`. The key command to remember is:
+
+```bash
 # To build fresh images and start all services
 docker-compose up --build
 IGNORE_WHEN_COPYING_START
 content_copy
 download
 Use code with caution.
-Bash
 IGNORE_WHEN_COPYING_END
 
 This command must be run from the project's root directory (where docker-compose.yml is located).
@@ -77,6 +74,8 @@ docker-compose.yml: The master orchestration file. It defines the three services
 
 All API routes are defined in server.js and are prefixed with /api.
 
+Tool Submission
+
 Endpoint: POST /api/add-entry
 
 Description: Submits a new AI literacy tool to be saved in the database.
@@ -101,6 +100,8 @@ IGNORE_WHEN_COPYING_END
 Success Response: 200 OK with a success message.
 
 Error Response: 400 Bad Request if validation fails, or 500 Internal Server Error.
+
+Quiz System
 
 Endpoint: GET /api/quiz/:topic
 
@@ -133,7 +134,7 @@ Generated json
 {
   "userId": "someUserId",
   "topic": "Deepfakes",
-  "answers": ["A", "C", ...]
+  "answers": ["A", "C", "..."]
 }
 IGNORE_WHEN_COPYING_START
 content_copy
