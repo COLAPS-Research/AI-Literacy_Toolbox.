@@ -57,7 +57,7 @@ Development Tools
 ![alt text](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white)
 ![alt text](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=black)
 ![alt text](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white)
-📂 Project Structure
+ Project Structure
 
 Project Structure
 
