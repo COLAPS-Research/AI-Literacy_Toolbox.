@@ -1,3 +1,6 @@
+Of course. This is an excellent request and a critical step in creating a professional, maintainable project. A README.md is for users and a quick overview; developer documentation is for the next person who has to work on your code—which might even be you in six months!
+
+This guide is designed to be saved as DEVELOPER_GUIDE.md in your project's root directory or used as the main page for your project's Wiki on GitHub. It explains the "how" and "why" behind your architectural decisions.
 
 Developer Documentation: AI Literacy Toolbox
 1. Introduction
