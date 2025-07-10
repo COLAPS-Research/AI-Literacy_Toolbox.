@@ -34,15 +34,7 @@ The application employs a decoupled, multi-container architecture orchestrated b
 This diagram illustrates the flow of information from the user to the database:
 
 
-```mermaid
-graph LR
-    A["User's Browser<br/>(localhost:80)"] --> B["Frontend (Nginx)<br/>- Serves static files<br/>- Proxies /api/ to backend"];
-    B --> C["Backend (Node.js)<br/>(API Logic @ Port 8080)"];
-    C --> D["Database (Mongo)<br/>(Data Persistence)"];
 
-    style B fill:#e6ffed,stroke:#333,stroke-width:2px
-    style C fill:#e3f2fd,stroke:#333,stroke-width:2px
-    style D fill:#fef0e3,stroke:#333,stroke-width:2px
 
 ![alt text](https://i.imgur.com/uQoVzE7.png)
 
