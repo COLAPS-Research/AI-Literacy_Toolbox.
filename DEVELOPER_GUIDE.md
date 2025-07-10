@@ -1,5 +1,4 @@
 
-Generated text
 # Developer Documentation: AI Literacy Toolbox
 
 ### Version 1.0 | Last Updated: 2025-07-10
@@ -41,7 +40,7 @@ This diagram illustrates the flow of information from the user to the database:
 | | | - Proxies /api/ to backend | | | | |
 +----------------+ +---------------------------------+ +---------------------------+ +----------------------+
 
-Generated code
+
 This pattern ensures that the Node.js process is not burdened with serving static files, allowing it to focus exclusively on processing API requests efficiently.
 
 ---
@@ -82,28 +81,31 @@ download
 Use code with caution.
 IGNORE_WHEN_COPYING_END
 
-/ai_toolbox_project/
-│
-├── 📂 public/ # Client-side code. All paths must be root-relative (e.g., /about.html).
-│
-├── 📂 models/ # Mongoose database schemas.
-│ └── 📜 dbTools.js
-│
-├── 📜 server.js # Node.js/Express backend entry point and API router.
-├── 📜 logger.js # Winston logger configuration.
-│
-├── 🐳 Dockerfile.backend # Build instructions for the Node.js service.
-├── 🐳 Dockerfile.frontend # Build instructions for the Nginx service.
-├── 📜 nginx.conf # Nginx configuration (serves public/, proxies /api/).
-├── 🐳 docker-compose.yml # Master orchestration file for all services.
-│
-├── 📦 package.json # Defines all Node.js dependencies and scripts.
-├── 📦 package-lock.json # Ensures reproducible builds. Do not edit manually.
-│
-└── 🔒 .env # Local environment variables. Ignored by Git.
+## 📂 Project Structure
 
-Generated code
----
+The project uses a clean, separated structure for frontend and backend concerns, making it easy to navigate and maintain.
+
+    /ai_toolbox_project/
+    │
+    ├── 📂 public/                # All static frontend files (HTML, CSS, JS, assets)
+    │
+    ├── 📂 models/                # Mongoose database schemas
+    │   └── 📜 dbTools.js
+    │
+    ├── 📜 server.js              # The main Node.js/Express backend server
+    ├── 📜 logger.js              # Winston logger configuration
+    │
+    ├── 🐳 Dockerfile.backend     # Docker instructions for the backend
+    ├── 🐳 Dockerfile.frontend    # Docker instructions for the frontend
+    ├── 📜 nginx.conf             # Nginx configuration for serving frontend & proxying API
+    ├── 🐳 docker-compose.yml     # Orchestrates all services
+    │
+    ├── 📦 package.json           # Project dependencies and scripts
+    ├── 📦 package-lock.json      # Exact dependency versions for reproducible builds
+    │
+    ├── 🔒 .env.example          # Example environment variables (rename to .env)
+    └── 📄 .dockerignore          # Files to exclude from the Docker build
+
 
 ## 4. API Endpoint Reference
 
