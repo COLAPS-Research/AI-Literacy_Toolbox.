@@ -57,14 +57,34 @@
         #topics {
             gap: 1.1rem !important;
         }
+        .copyright {
+            color: #bbb;
+            font-size: 1rem;
+            margin-top: 18px;
+            letter-spacing: 0.2px;
+            text-align: center;
+            opacity: 0.88;
+            line-height: 1.5;
+        }
+        .copyright span {
+            color: #ffb366;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container d-flex justify-content-center align-items-center flex-column" style="min-height: 100vh;">
     <div class="card">
         <h1 class="text-center">Welcome to QuizzerAI!</h1>
         <h4 class="text-center">Choose a Topic to Start</h4>
         <div id="topics" class="d-flex flex-wrap justify-content-center"></div>
+    </div>
+    <div class="copyright mt-4">
+        <p>
+            Hosted with permission on the AI Literacy Toolbox.<br />
+            Game originally created and provided by 
+            <span>Yannick Haußmann, Linda Matzner, Cate Reich, Lara von Waldowski</span>.
+        </p>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
