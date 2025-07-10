@@ -1,36 +1,53 @@
+volumes:
+  mongo-data: {}
+# This is a Docker Compose file for an AI Toolbox project.
+# It defines three services: backend, frontend, and mongo.
+### The Corrected `docker-compose.yml`
+
+
 services:
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    # It's good practice to name your containers for easier management
+    container_name: ai_toolbox_backend
     ports:
-      - "8080:8080" # <-- Fixed the missing quote
+      - "8080:8080"
     env_file:
       - .env
-    depends_on: # <-- Added this section to solve the race condition
+    depends_on:
       mongo:
+        # This is an excellent way to prevent your backend from starting
+        # until the database is truly ready to accept connections.
         condition: service_healthy
 
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+    container_name: ai_toolbox_frontend
     ports:
       - "80:80"
-    # If your frontend needs to wait for the backend, you can add a depends_on here too.
+    # If your frontend fetches data from the backend on startup,
+    # you might want it to wait for the backend to be ready.
+    # depends_on:
+    #   - backend
 
   mongo:
-    image: mongo:6.0 # <-- Pinned to a specific, stable version
+    image: mongo:6.0
+    container_name: ai_toolbox_db
+    # In a production environment, you might remove the 'ports' section
+    # to prevent direct access to the database from outside the Docker network.
+    # The 'backend' service can still connect to it internally.
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-    healthcheck: # <-- Added a healthcheck for the backend to use
+    healthcheck:
+      # This healthcheck is what enables the 'service_healthy' condition above.
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 20s
-
-volumes:
-  mongo-data:```
