@@ -29,15 +29,28 @@ The application employs a decoupled, multi-container architecture orchestrated b
 *   **`backend` (Node.js/Express):** A dedicated API server responsible for all business logic, database interactions, and email notifications. It is not directly exposed to the internet.
 *   **`mongo` (MongoDB):** The database service, which persists all application data.
 
+
+
 ### Request Flow Diagram
 
-This diagram illustrates the flow of information from the user to the database:
+This diagram illustrates the flow of information from the user to the database.
 
+*   **1. User's Browser (`localhost:80`)**
+    *   The user interacts with the website, sending an initial request.
+    *   ⬇
+*   **2. Frontend Container (Nginx)**
+    *   Receives all incoming traffic.
+    *   **If the request is for a static asset** (e.g., `index.html`, `style.css`), Nginx serves the file directly from the `/public` directory.
+    *   **If the request is an API call** (i.e., its path starts with `/api/`), Nginx forwards the request to the backend service.
+    *   ⬇
+*   **3. Backend Container (Node.js)**
+    *   Receives only the API calls from the Nginx proxy on its internal port (`8080`).
+    *   Processes all business logic (e.g., validates data, prepares database query).
+    *   ⬇
+*   **4. Database Container (MongoDB)**
+    *   The backend service connects to the database to read or write data. The result is sent back up the chain to the user.
 
-
-
-![alt text](https://i.imgur.com/uQoVzE7.png)
-
+This pattern ensures that the Node.js process is not burdened with serving static files, allowing it to focus exclusively on processing API requests efficiently.
 
 
 
