@@ -44,46 +44,10 @@ graph LR
     style C fill:#e3f2fd,stroke:#333,stroke-width:2px
     style D fill:#fef0e3,stroke:#333,stroke-width:2px
 
+![alt text](https://i.imgur.com/uQoVzE7.png)
 
-This pattern ensures that the Node.js process is not burdened with serving static files, allowing it to focus exclusively on processing API requests efficiently.
 
----
 
-## 2. Local Environment Setup
-
-### Prerequisites
-*   Git
-*   Docker Desktop (running and stable)
-
-### Procedure
-1.  **Clone Repository:**
-    ```bash
-    git clone https://github.com/ksohailwa/AI-literacy.git
-    cd "AI-literacy/AI-Literacy (css upgrade)/ai_toolbox_project"
-    ```
-2.  **Configure Environment:**
-    Create a `.env` file in the project root by copying `.env.example`. Populate it with the required credentials as defined in the [Environment Variables](#6-environment-variables) section.
-
-3.  **Build and Launch:**
-    Execute the following command from the project root. This will build fresh images for all services and start the containers in detached mode.
-    ```bash
-    docker-compose up --build -d
-    ```
-
-4.  **Access Services:**
-    *   **Main Website:** `http://localhost:80`
-    *   **Backend API Status:** `http://localhost:8080/api/status` (direct access for testing)
-
----
-
-## 3. Codebase Structure
-
-The project is organized to maintain a clear separation of concerns between frontend, backend, and configuration code.
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-IGNORE_WHEN_COPYING_END
 
 ## 📂 Project Structure
 
