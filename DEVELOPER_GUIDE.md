@@ -33,7 +33,6 @@ The application employs a decoupled, multi-container architecture orchestrated b
 
 This diagram illustrates the flow of information from the user to the database:
 
-
 +----------------+ +---------------------------------+ +---------------------------+ +----------------------+
 | User's Browser | ---> | Frontend (Nginx) | ---> | Backend (Node.js) | ---> | Database (Mongo) |
 | (localhost:80) | | - Serves static files | | (API Logic @ Port 8080) | | (Data Persistence) |
