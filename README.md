@@ -59,32 +59,9 @@ Development Tools
 ![alt text](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white)
 ![alt text](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=black)
 ![alt text](https://img.shields.io/badge/-Nodemon-76D04B?logo=nodemon&logoColor=white)
+
+
 📂 Project Structure
-
-The project has been refactored into a simpler, single-application architecture. The Node.js server is now responsible for serving the frontend files directly.
-
-Generated code
-/ai_toolbox_project/
-│
-├── 📂 public/                # All static frontend files (HTML, CSS, JS, assets)
-│
-├── 📂 models/                # Mongoose database schemas
-│   └── 📜 dbTools.js
-│
-├── 📜 server.js              # The single, powerful Node.js server for API and frontend
-├── 📜 logger.js              # Winston logger configuration
-│
-├── 🐳 Dockerfile             # A single Dockerfile for the entire Node.js application
-├── 🐳 docker-compose.yml     # Orchestrates the app and mongo services
-│
-├── 📦 package.json           # Project dependencies and scripts
-├── 📦 package-lock.json      # For reproducible, reliable builds
-│
-├── 🔒 .env.example          # Example environment variables (rename to .env)
-└── 📄 .dockerignore          # Files to exclude from the Docker build
-
-
-Project Structure
 
 The project uses a clean, separated structure for frontend and backend concerns, making it easy to navigate and maintain.
 
