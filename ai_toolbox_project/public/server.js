@@ -49,6 +49,54 @@ function roundToStars(wert){
   return starRounded;
 }
 
+
+
+
+
+// --- Define the Application's Base Path ---
+const basePath = process.env.BASE_PATH || '/';
+// --- API Router Setup ---
+const apiRouter = express.Router();
+
+// Define all your API routes here
+// This will be accessible at GET /ai-literacy-toolbox/api/status
+apiRouter.get('/status', (req, res) => res.json({ status: 'API is healthy' }));
+
+// This will be accessible at POST /ai-literacy-toolbox/api/add-entry
+apiRouter.post('/add-entry', async (req, res) => {
+    // Your logic to save a new tool
+    res.send('Tool submitted!');
+});
+
+// Mount the API router AT THE CORRECT PATH
+app.use(`${basePath}/api`, apiRouter);
+
+// --- Static File Server ---
+// Serve the 'public' folder from the base path. This makes your website visible.
+// A request for /ai-literacy-toolbox/style.css will serve the file public/style.css
+app.use(basePath, express.static(path.join(__dirname, 'public')));
+
+// --- Catch-all for Frontend Routing ---
+// This ensures that if a user refreshes on /ai-literacy-toolbox/about.html,
+// your app still serves the main HTML page.
+app.get(`${basePath}/*`, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '/index.html'));
+});
+
+
+// ... your database connection and app.listen logic ...
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------Database Section---------------------------------------------//
 
 // get all tools from the databse
@@ -216,9 +264,6 @@ app.post('/send-email-contact', async (req, res) => {
 
 //--------------------------------------------Server Start Section----------------------------------------//
 
-app.listen(port, () => {
-  logger.info(`Server läuft auf http://localhost:${port}`);
-});
 
 //--------------------------------------------Rating Toolbox Section----------------------------------------//
 

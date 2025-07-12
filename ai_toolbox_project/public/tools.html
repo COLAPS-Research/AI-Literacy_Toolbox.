@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>All AI Literacy Tools</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/ai-literacy-toolbox/style.css" />
   <style>
     main.scroll-container p.intro-text {
       text-align: center;
@@ -38,11 +38,11 @@
 <header class="topbar">
   <div class="header-inner">
     <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="ai_literacy.html">AI Literacy</a>
-      <a href="tools.html" class="active">All Tools</a>
+      <a href="/ai-literacy-toolbox/index.html">Home</a>
+      <a href="/ai-literacy-toolbox/about.html">About</a>
+      <a href="/ai-literacy-toolbox/contact.html">Contact</a>
+      <a href="/ai-literacy-toolbox/ai_literacy.html">AI Literacy</a>
+      <a href="/ai-literacy-toolbox/tools.html" class="active">All Tools</a>
     </nav>
     <div class="header-right">
       <div class="search">
@@ -64,11 +64,11 @@
   </div>
 
   <div class="add-button">
-    <a href="submit.html" class="button-style">+ Add Tool</a>
+    <a href="/ai-literacy-toolbox/submit.html" class="button-style">+ Add Tool</a>
   </div>
 </main>
 
-<a href="index.html">
+<a href="/ai-literacy-toolbox/index.html">
   <img src="assets/logo.png" alt="Logo" class="logo-bottom-right" />
 </a>
 
@@ -97,7 +97,7 @@
 
     // html toolbox container mit db inhalt bestücken
      try{
-        const response = await fetch('http://localhost:3000/get-data' , {
+        const response = await fetch('/ai-literacy-toolbox/api/get-data' , {
             method : 'GET',
             headers : {
                 'Content-Type': 'application/json'
@@ -196,7 +196,7 @@
                     return;
                   }
                   try {
-                    const response = await fetch('http://localhost:3000/rate-toolbox', {
+                    const response = await fetch('/ai-literacy-toolbox/api/add-entry', {
                       method: 'PATCH',
                       headers: {
                           'Content-Type': 'application/json'
@@ -306,8 +306,8 @@
   
 </script>
 
-<script src="searchData.js"></script>
-<script src="script.js"></script>
+<script src="/ai-literacy-toolbox/searchData.js"></script>
+<script src="/ai-literacy-toolbox/script.js"></script>
 
   <!-- hidden div for starRating -->
   <div id="rating-menu" style="position: absolute;

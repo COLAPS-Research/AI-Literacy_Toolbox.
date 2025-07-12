@@ -11,10 +11,11 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the source code
+# This copies everything, including the 'public' folder
 COPY . .
 
 # Expose port (change as needed)
-EXPOSE 3000
+EXPOSE 8080
 
 # Start the application
 CMD [ "npm", "start" ]

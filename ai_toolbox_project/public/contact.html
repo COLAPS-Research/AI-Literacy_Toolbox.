@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/ai-literacy-toolbox/style.css" />
   <style>
     .faq-item {
       margin-bottom: 1rem;
@@ -90,11 +90,11 @@
 <header class="topbar">
   <div class="header-inner">
     <nav class="navbar">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="active">Contact</a>
-      <a href="ai_literacy.html">AI Literacy</a>
-      <a href="tools.html">All Tools</a>
+      <a href="/ai-literacy-toolbox/index.html">Home</a>
+      <a href="/ai-literacy-toolbox/about.html">About</a>
+      <a href="/ai-literacy-toolbox/contact.html" class="active">Contact</a>
+      <a href="/ai-literacy-toolbox/ai_literacy.html">AI Literacy</a>
+      <a href="/ai-literacy-toolbox/tools.html">All Tools</a>
     </nav>
     <div class="header-right">
       <div class="search">
@@ -160,7 +160,7 @@
     <div class="faq-answer">
       <p>
         You can submit new tools or games through the 
-        <a href="submit.html">Submit Tool</a> page by providing the required information such as title, contact email, type, GitHub link, and description.
+        <a href="/ai-literacy-toolbox/submit.html">Submit Tool</a> page by providing the required information such as title, contact email, type, GitHub link, and description.
       </p>
     </div>
   </div>
@@ -181,7 +181,7 @@
     <div class="faq-answer">
       <p>
         If you experience issues, try refreshing the page, clearing your browser cache, or using a different browser. If problems persist, please 
-        <a href="contact.html">contact us via the form</a> with a detailed description.
+        <a href="/ai-literacy-toolbox/contact.html">contact us via the form</a> with a detailed description.
       </p>
     </div>
   </div>
@@ -211,7 +211,7 @@
     <div class="faq-answer">
       <p>
         Yes, you can contact us through the 
-        <a href="contact.html">contact form</a> and suggest topics or tools you'd like to see added to the toolbox.
+        <a href="/ai-literacy-toolbox/contact.html">contact form</a> and suggest topics or tools you'd like to see added to the toolbox.
       </p>
     </div>
   </div>
@@ -223,13 +223,13 @@
     <div class="faq-answer">
       <p>
         We welcome contributions! Please get in touch with us via the 
-        <a href="contact.html">contact page</a> to discuss how you can help improve or translate the tools.
+        <a href="/ai-literacy-toolbox/contact.html">contact page</a> to discuss how you can help improve or translate the tools.
       </p>
     </div>
   </div>
 </section>
 
-<a href="contact.html">
+<a href="/ai-literacy-toolbox/contact.html">
   <img src="assets/logo.png" alt="Logo" class="logo-bottom-right" />
 </a>
 
@@ -249,7 +249,7 @@
 
     try {
       // request send-email-contact from server
-      const response = await fetch('http://localhost:3000/send-email-contact', {
+      const response = await fetch('/ai-literacy-toolbox/api/send-email-contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'  // send JSON
@@ -297,8 +297,8 @@
   });
 </script>
 
-<script src="searchData.js"></script>
-<script src="script.js"></script>
+<script src="/ai-literacy-toolbox/searchData.js"></script>
+<script src="/ai-literacy-toolbox/script.js"></script>
 
 </body>
 </html>

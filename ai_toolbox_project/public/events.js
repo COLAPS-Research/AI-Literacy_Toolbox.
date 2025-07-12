@@ -84,7 +84,7 @@ submitButton.addEventListener("click" , async (event) => {
     //------------------------------------------Add-Entry section----------------------------------------------//
   
     try {
-        const response = await fetch('http://localhost:3000/add-entry', {
+        const response = await fetch('/ai-literacy-toolbox/api/add-entry', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -129,7 +129,7 @@ submitButton.addEventListener("click" , async (event) => {
 
     try {
       // Anfrage an den Server senden – POST an /send-email
-      const response = await fetch('http://localhost:3000/send-email-submit', {
+      const response = await fetch('/ai-literacy-toolbox/api/send-email-submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'  // JSON wird geschickt
