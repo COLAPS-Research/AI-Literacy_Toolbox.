@@ -1,9 +1,6 @@
 // =================================================================
 //                 AI LITERACY TOOLBOX - FINAL SERVER
 // =================================================================
-// This server integrates all functionalities into a robust and
-// maintainable architecture.
-// =================================================================
 
 // --- 1. IMPORTS & INITIAL SETUP ---
 const express = require('express');
