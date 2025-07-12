@@ -70,7 +70,6 @@ The project uses a clean, separated structure for frontend and backend concerns,
     ├──  logger.js              # Winston logger configuration
     │
     ├──  Dockerfile.backend     # Docker instructions for the backend
-    ├──  Dockerfile.frontend    # Docker instructions for the frontend
     ├──  nginx.conf             # Nginx configuration for serving frontend & proxying API
     ├──  docker-compose.yml     # Orchestrates all services
     │
@@ -79,6 +78,7 @@ The project uses a clean, separated structure for frontend and backend concerns,
     │
     ├──  .env.example          # Example environment variables (rename to .env)
     └──  .dockerignore          # Files to exclude from the Docker build
+
 
 ⚙️ Getting Started: Local Development Setup
 
@@ -94,25 +94,11 @@ Installation Steps
 
 Clone the repository:
 
-Generated bash
 git clone https://github.com/your-username/your-new-repo.git
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
 
 Navigate to the project directory:
 
-Generated bash
 cd your-new-repo
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
 
 Create the environment file (.env):
 Create a new file named .env in the project root. Copy the contents of .env.example into it and fill in your actual credentials.
@@ -138,38 +124,18 @@ MONGO_URI=mongodb://mongo:27017/AItoolboxes
 # --- Application Server Port ---
 # The internal port for the Node.js app. Do not change.
 PORT=8080
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Env
-IGNORE_WHEN_COPYING_END
-</details>
 
+</details>
 
 Run npm install (First time only):
 This command will generate your package-lock.json file based on package.json.
 
-Generated bash
 npm install
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
 
 Build and Run the Application:
 This single command will build the Docker image and start both the application and database containers.
 
-Generated bash
 docker-compose up --build
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
 
 Access the Application:
 Your entire application is exposed on port 80, the standard web port.
