@@ -1,4 +1,4 @@
-AI Literacy Toolbox 🤖
+---AI Literacy Toolbox 🤖---
 
 ![alt text](https://img.shields.io/badge/License-MIT-blue.svg)
 ![alt text](https://img.shields.io/badge/build-passing-brightgreen.svg)
