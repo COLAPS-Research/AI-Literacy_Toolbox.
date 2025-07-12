@@ -63,28 +63,29 @@ Project Structure
 
 The project uses a clean, separated structure for frontend and backend concerns, making it easy to navigate and maintain.
 
-  /ai_toolbox_project/
 
-  
+
+/ai_toolbox_project/
 │
-├──  public/                # All static frontend files (HTML, CSS, JS, assets)
+├── 📂 public/ # All static frontend files (HTML, CSS, JS, assets)
 │
-├──  models/                # Mongoose database schemas
-│   └──  dbTools.js
+├── 📂 models/ # Mongoose database schemas
+│ └── 📜 dbTools.js
 │
-├──  server.js              # The main Node.js/Express backend server
-├──  logger.js              # Winston logger configuration
+├── 📜 server.js # The main Node.js/Express backend server
+├── 📜 logger.js # Winston logger configuration
 │
-├──  Dockerfile.backend     # Docker instructions for the backend
-├──  Dockerfile.frontend    # Docker instructions for the frontend
-├──  nginx.conf             # Nginx configuration for serving frontend & proxying API
-├──  docker-compose.yml     # Orchestrates all services
+├── 🐳 Dockerfile.backend # Docker instructions for the backend
+├── 🐳 Dockerfile.frontend # Docker instructions for the frontend
+├── 📜 nginx.conf # Nginx configuration for serving frontend & proxying API
+├── 🐳 docker-compose.yml # Orchestrates all services
 │
-├──  package.json           # Project dependencies and scripts
-├──  package-lock.json      # Exact dependency versions for reproducible builds
+├── 📦 package.json # Project dependencies and scripts
+├── 📦 package-lock.json # Exact dependency versions for reproducible builds
 │
-├──  .env.example          # Example environment variables (rename to .env)
-└──  .dockerignore          # Files to exclude from the Docker build
+├── 🔒 .env.example # Example environment variables (rename to .env)
+└── 📄 .dockerignore # Files to exclude from the Docker build
+⚙️ Getting Started: Local Development Setup
 
 Follow these steps to get the entire application running on your local machine.
 
