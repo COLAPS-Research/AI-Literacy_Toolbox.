@@ -26,8 +26,8 @@ services:
     # In a production environment, you might remove the 'ports' section
     # to prevent direct access to the database from outside the Docker network.
     # The 'backend' service can still connect to it internally.
-    ports:
-      - "27017:27017"
+    expose:
+      - "27017"
     volumes:
       - mongo-data:/data/db
     healthcheck:
