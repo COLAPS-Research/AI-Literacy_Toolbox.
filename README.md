@@ -1,43 +1,40 @@
-Of course. An excellent README.md is the "front door" to your project. Now that the architecture is finalized and all features are integrated, the documentation must be updated to reflect this new, simpler, and more robust reality.
-
-The old README mentioned a separate Nginx frontend, which is no longer the case. This updated version accurately describes the current single-application architecture and provides clear, correct instructions.
-
-Here is the complete, professional README.md file, updated for your final project.
-
-AI Literacy Toolbox 🤖
+AI Literacy Toolbox 
 
 ![alt text](https://img.shields.io/badge/License-MIT-blue.svg)
 ![alt text](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![alt text](https://img.shields.io/badge/Docker-Powered-blue?logo=docker)
-![alt text](https://img.shields.io/badge/Node.js-Fullstack-green?logo=nodedotjs)
+![alt text](https://img.shields.io/badge/Node.js-Backend-green?logo=nodedotjs)
+![alt text](https://img.shields.io/badge/Nginx-Frontend-darkgreen?logo=nginx)
 
 The AI Literacy Toolbox is a comprehensive web platform designed to empower students, educators, and enthusiasts with the knowledge and skills to understand, evaluate, and effectively use Artificial Intelligence. Developed as a project at the University of Duisburg-Essen, this application combines educational content with interactive tools in a fully containerized, easy-to-deploy package.
 
 Our mission is to close the AI knowledge gap by providing a collaborative platform where the community can learn and contribute.
 
-✨ Core Features
+Core Features
 
-📚 Educational Content: Interactive modules and resources explaining key AI concepts, ethics, and applications.
+Educational Content: Interactive modules and resources explaining key AI concepts, ethics, and applications.
 
-🛠️ Interactive Tools: A curated collection of games and tools designed to teach AI principles in a hands-on way.
+Interactive Tools: A curated collection of games and tools designed to teach AI principles like pattern recognition and machine learning in a hands-on way.
 
-🚀 Community Submissions: A simple and secure form for users to submit their own AI literacy tools to the platform.
+Community Submissions: A simple and secure form for users to submit their own AI literacy tools, helping the platform grow.
 
-📫 Automated Email Notifications: A backend service that sends email confirmations for successful tool submissions.
+Email Notifications: An automated email system to confirm successful tool submissions.
 
-📦 Self-Contained Deployment: The entire application is designed to run under a specific URL path (/ai-literacy-toolbox/), making it easy to deploy on a shared server without complex proxy rules.
+Fully Containerized: The entire stack (Frontend, Backend, Database) is managed with Docker and Docker Compose for one-command setup and deployment.
 
-🐳 Fully Containerized: The entire stack (Node.js Fullstack App + Database) is managed with Docker and Docker Compose for a one-command setup.
+Secure API: A backend built with Node.js and Express, designed to run securely under a specific URL path for multi-app environments.
 
-🚀 Live Demo
+Dynamic Search: Client-side search functionality to quickly find content across the site.
+
+Live Demo
 
 You can access a live version of the project deployed on our university's server:
 
 https://demo.colaps.team/ai-literacy-toolbox/
 
-🛠️ Technology Stack
+Technology Stack
 
-This project is built with a modern, reliable stack where the Node.js server handles both API and frontend duties.
+This project is built with a modern, reliable stack:
 
 Component	Technology
 Frontend	
@@ -52,38 +49,42 @@ Backend
 Database	
 ![alt text](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white)
 
-Containerization	
+Deployment	
 ![alt text](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white)
+![alt text](https://img.shields.io/badge/-Nginx-269539?logo=nginx&logoColor=white)
 
 Development Tools	
 ![alt text](https://img.shields.io/badge/-ESLint-4B32C3?logo=eslint&logoColor=white)
 ![alt text](https://img.shields.io/badge/-Prettier-F7B93E?logo=prettier&logoColor=black)
-![alt text](https://img.shields.io/badge/-Nodemon-76D04B?logo=nodemon&logoColor=white)
-📂 Project Structure
+![alt text](https://img.shields.io/badge/-Jest-C21325?logo=jest&logoColor=white)
+ Project Structure
 
-The project has been refactored into a simpler, single-application architecture. The Node.js server is now responsible for serving the frontend files directly.
+Project Structure
 
-Generated code
-/ai_toolbox_project/
-│
-├── 📂 public/                # All static frontend files (HTML, CSS, JS, assets)
-│
-├── 📂 models/                # Mongoose database schemas
-│   └── 📜 dbTools.js
-│
-├── 📜 server.js              # The single, powerful Node.js server for API and frontend
-├── 📜 logger.js              # Winston logger configuration
-│
-├── 🐳 Dockerfile             # A single Dockerfile for the entire Node.js application
-├── 🐳 docker-compose.yml     # Orchestrates the app and mongo services
-│
-├── 📦 package.json           # Project dependencies and scripts
-├── 📦 package-lock.json      # For reproducible, reliable builds
-│
-├── 🔒 .env.example          # Example environment variables (rename to .env)
-└── 📄 .dockerignore          # Files to exclude from the Docker build
+The project uses a clean, separated structure for frontend and backend concerns, making it easy to navigate and maintain.
 
-⚙️ Getting Started: Local Development Setup
+  /ai_toolbox_project/
+
+  
+│
+├──  public/                # All static frontend files (HTML, CSS, JS, assets)
+│
+├──  models/                # Mongoose database schemas
+│   └──  dbTools.js
+│
+├──  server.js              # The main Node.js/Express backend server
+├──  logger.js              # Winston logger configuration
+│
+├──  Dockerfile.backend     # Docker instructions for the backend
+├──  Dockerfile.frontend    # Docker instructions for the frontend
+├──  nginx.conf             # Nginx configuration for serving frontend & proxying API
+├──  docker-compose.yml     # Orchestrates all services
+│
+├──  package.json           # Project dependencies and scripts
+├──  package-lock.json      # Exact dependency versions for reproducible builds
+│
+├──  .env.example          # Example environment variables (rename to .env)
+└──  .dockerignore          # Files to exclude from the Docker build
 
 Follow these steps to get the entire application running on your local machine.
 
@@ -98,7 +99,7 @@ Installation Steps
 Clone the repository:
 
 Generated bash
-git clone https://github.com/your-username/your-new-repo.git
+git clone https://github.com/ksohailwa/AI-literacy.git
 IGNORE_WHEN_COPYING_START
 content_copy
 download
@@ -109,7 +110,7 @@ IGNORE_WHEN_COPYING_END
 Navigate to the project directory:
 
 Generated bash
-cd your-new-repo
+cd "AI-literacy/AI-Literacy (css upgrade)/ai_toolbox_project"
 IGNORE_WHEN_COPYING_START
 content_copy
 download
@@ -124,22 +125,19 @@ Create a new file named .env in the project root. Copy the contents of .env.exam
 <summary>Click to see `.env` template</summary>
 
 Generated env
-# --- Application Path ---
-BASE_PATH=/ai-literacy-toolbox
-
 # --- Email Server (SMTP) Configuration ---
-# WARNING: Use a 16-character Google App Password, not your main account password.
+# WARNING: Use a Google App Password, not your main account password.
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_16_character_app_password
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 
 # --- Database Configuration ---
-# This is correctly configured for Docker. Do not change.
+# Use the Docker service name 'mongo', not 'localhost'.
 MONGO_URI=mongodb://mongo:27017/AItoolboxes
 
 # --- Application Server Port ---
-# The internal port for the Node.js app. Do not change.
+# This is the internal port for the Node.js app.
 PORT=8080
 IGNORE_WHEN_COPYING_START
 content_copy
@@ -150,20 +148,8 @@ IGNORE_WHEN_COPYING_END
 </details>
 
 
-Run npm install (First time only):
-This command will generate your package-lock.json file based on package.json.
-
-Generated bash
-npm install
-IGNORE_WHEN_COPYING_START
-content_copy
-download
-Use code with caution.
-Bash
-IGNORE_WHEN_COPYING_END
-
 Build and Run the Application:
-This single command will build the Docker image and start both the application and database containers.
+This single command will build the Docker images and start all services (frontend, backend, and database).
 
 Generated bash
 docker-compose up --build
@@ -175,21 +161,19 @@ Bash
 IGNORE_WHEN_COPYING_END
 
 Access the Application:
-Your entire application is exposed on port 80, the standard web port.
+Once the containers are running, you can access the services:
 
-Main Entry Point: Open your browser to http://localhost/ai-literacy-toolbox/
+Frontend Website: http://localhost:80
 
-To check the backend status: Visit http://localhost/ai-literacy-toolbox/api/status
+Backend API Status: http://localhost:8080/ai-literacy-toolbox/status
 
-Note: You do not need to use port 8080 in your browser. Docker handles the mapping for you.
-
-▶️ Running the Application
+ Running the Application
 
 To start all services: docker-compose up
 
 To stop all services: Press Ctrl + C in the terminal, then run docker-compose down.
 
-🤝 How to Contribute
+ How to Contribute
 
 We welcome contributions! Please follow these steps:
 
@@ -205,7 +189,7 @@ Push to the branch (git push origin feature/your-awesome-feature).
 
 Open a Pull Request.
 
-👥 The Team
+ The Team
 
 This project was brought to life by a dedicated team of students:
 
@@ -225,6 +209,6 @@ Supervised by:
 
 Prof. Dr. Irene-Angelica Chounta
 
-📜 License
+ License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details.
