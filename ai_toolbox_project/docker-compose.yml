@@ -6,7 +6,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: Dockerfile
     # It's good practice to name your containers for easier management
     container_name: ai_toolbox_backend
     ports:
