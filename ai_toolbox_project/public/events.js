@@ -7,6 +7,16 @@ function validEmail(email){
   const regex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
   return regex.test(email);
 }
+function validateThumbnailUrl(url) {
+  if (!url || typeof url !== 'string' || url.trim() === '') {
+    throw new Error("Please enter a valid URL.");
+  }
+  try {
+    new URL(url);
+  } catch {
+    throw new Error("Ungültiges URL-Format");
+  }
+}
 function getEmail(){
     const Email = document.getElementById("email").value;
     return Email;
@@ -70,13 +80,19 @@ submitButton.addEventListener("click" , async (event) => {
     if(!types.includes(uploadType)){
       throw new Error(`Invalid input : ${uploadType}`);
     }
-      
+  
+  // check thumbnail
+  const thumbnailURL = getThumbnail();
+  try {
+      validateThumbnailUrl(thumbnailURL); 
+        } catch (e) {
+      console.error("Fehler:", e.message); 
+    } 
     
     // server can save the uploadDate as an Date object
     const uploadDate = new Date().toISOString(); 
     const fileURL = getLink();
     const uploadDescription = getDescription();
-    const thumbnailURL = getThumbnail();
     const ageRecommendation = getAgeRecommandation();
     const uploadTitle = getTitle();
     const uploadTags = getUploadTags();
