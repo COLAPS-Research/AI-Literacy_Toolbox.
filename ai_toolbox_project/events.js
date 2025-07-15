@@ -117,7 +117,7 @@ submitButton.addEventListener("click" , async (event) => {
     }
 
   //------------------------------------------E-Mail section----------------------------------------------//
-  /*
+  
   // E-Mail Adresse aus dem InputFeld holen
   const email = getEmail();
 
@@ -148,6 +148,5 @@ submitButton.addEventListener("click" , async (event) => {
       console.error('Fehler beim Senden:', error);
       alert('Beim Senden ist ein Fehler aufgetreten.');
     }
-      */
   });
   
