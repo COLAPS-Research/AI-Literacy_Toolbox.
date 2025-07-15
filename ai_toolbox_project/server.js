@@ -7,7 +7,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');f
+const nodemailer = require('nodemailer');
 const logger = require('./logger');
 const Tool = require('./models/dbTools');
 require('dotenv').config();
@@ -171,7 +171,7 @@ mongoose.connect(MONGO_URI)
         logger.info('MongoDB connection established successfully!');
         app.listen(PORT, () => {
             logger.info(`Server is now listening on port ${PORT}`);
-            logger.info(`Access the application at:  https://demo.colaps.team/`);
+            logger.info(`Access the application at: http://localhost${basePath}`);
         });
     })
     .catch(err => {
