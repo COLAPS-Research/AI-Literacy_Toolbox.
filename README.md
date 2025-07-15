@@ -1,5 +1,4 @@
-# AI Literacy Toolbox 🤖
-
+# AI Literacy Toolbox 
 ![alt text](https://img.shields.io/badge/License-MIT-blue.svg)
 ![alt text](https://img.shields.io/badge/build-passing-brightgreen.svg)
 ![alt text](https://img.shields.io/badge/Docker-Powered-blue?logo=docker)
@@ -9,27 +8,27 @@ The AI Literacy Toolbox is a comprehensive web platform designed to empower stud
 
 Our mission is to close the AI knowledge gap by providing a collaborative platform where the community can learn and contribute.
 
-✨ Core Features
+ Core Features
 
-📚 Educational Content: Interactive modules and resources explaining key AI concepts, ethics, and applications.
+ Educational Content: Interactive modules and resources explaining key AI concepts, ethics, and applications.
 
-🛠️ Interactive Tools: A curated collection of games and tools designed to teach AI principles in a hands-on way.
+ Interactive Tools: A curated collection of games and tools designed to teach AI principles in a hands-on way.
 
-🚀 Community Submissions: A simple and secure form for users to submit their own AI literacy tools to the platform.
+ Community Submissions: A simple and secure form for users to submit their own AI literacy tools to the platform.
 
-📫 Automated Email Notifications: A backend service that sends email confirmations for successful tool submissions.
+ Automated Email Notifications: A backend service that sends email confirmations for successful tool submissions.
 
-📦 Self-Contained Deployment: The entire application is designed to run under a specific URL path (/ai-literacy-toolbox/), making it easy to deploy on a shared server without complex proxy rules.
+ Self-Contained Deployment: The entire application is designed to run under a specific URL path (/ai-literacy-toolbox/), making it easy to deploy on a shared server without complex proxy rules.
 
-🐳 Fully Containerized: The entire stack (Node.js Fullstack App + Database) is managed with Docker and Docker Compose for a one-command setup.
+ Fully Containerized: The entire stack (Node.js Fullstack App + Database) is managed with Docker and Docker Compose for a one-command setup.
 
-🚀 Live Demo
+ Live Demo
 
 You can access a live version of the project deployed on our university's server:
 
 https://demo.colaps.team/ai-literacy-toolbox/
 
-🛠️ Technology Stack
+ Technology Stack
 
 This project is built with a modern, reliable stack where the Node.js server handles both API and frontend duties.
 
@@ -55,7 +54,7 @@ Development Tools
 ![alt text](https://img.shields.io/badge/-Nodemon-76D04B?logo=nodemon&logoColor=white)
 
 
-📂 Project Structure
+ Project Structure
 
 The project uses a clean, separated structure for frontend and backend concerns, making it easy to navigate and maintain.
 
@@ -80,7 +79,7 @@ The project uses a clean, separated structure for frontend and backend concerns,
     └──  .dockerignore          # Files to exclude from the Docker build
 
 
-⚙️ Getting Started: Local Development Setup
+ Getting Started: Local Development Setup
 
 Follow these steps to get the entire application running on your local machine.
 
@@ -146,13 +145,13 @@ To check the backend status: Visit http://localhost/ai-literacy-toolbox/api/stat
 
 Note: You do not need to use port 8080 in your browser. Docker handles the mapping for you.
 
-▶️ Running the Application
+ Running the Application
 
 To start all services: docker-compose up
 
 To stop all services: Press Ctrl + C in the terminal, then run docker-compose down.
 
-🤝 How to Contribute
+ How to Contribute
 
 We welcome contributions! Please follow these steps:
 
@@ -168,7 +167,7 @@ Push to the branch (git push origin feature/your-awesome-feature).
 
 Open a Pull Request.
 
-👥 The Team
+ The Team
 
 This project was brought to life by a dedicated team of students:
 
@@ -188,7 +187,7 @@ Supervised by:
 
 Prof. Dr. Irene-Angelica Chounta
 
-📜 License
+ License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
