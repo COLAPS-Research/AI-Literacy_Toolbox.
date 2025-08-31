@@ -112,6 +112,7 @@
 
         //----------------------------------------Render Tools Section----------------------------------//
             data.forEach(tool => {
+              if(tool.reviewStatus === "confirmed") {
 
               // <a class="tool-card">
               const link = document.createElement("a");
@@ -266,7 +267,7 @@
 
               // a-Element an den Container anfügen
               container.appendChild(link);
-            
+              } // if(tool.reviewstatus) ende
           }); // for each tool loop ende
 
     }catch (error){
