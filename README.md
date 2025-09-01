@@ -68,8 +68,7 @@ The project uses a clean, separated structure for frontend and backend concerns,
     ├──  server.js              # The main Node.js/Express backend server
     ├──  logger.js              # Winston logger configuration
     │
-    ├──  Dockerfile.backend     # Docker instructions for the backend
-    ├──  nginx.conf             # Nginx configuration for serving frontend & proxying API
+    ├──  Dockerfile             # Docker instructions 
     ├──  docker-compose.yml     # Orchestrates all services
     │
     ├──  package.json           # Project dependencies and scripts
